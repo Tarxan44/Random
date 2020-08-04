@@ -12,7 +12,7 @@ class CategorySort():
       #df.to_excel(writer)
 
       #  future Column names on final output table/intitialization stuffs
-      names = ['Category', 'Times Mentioned', 'Years Absent', 'Years Present']
+      names = ['Category', 'Times Mentioned', 'Years Active']
       finalTable = pd.DataFrame(columns = names)
 
       #Sets up datatypes and column names to pull from sheet
@@ -102,5 +102,5 @@ class CategorySort():
       
       
  #runs the function
- table = category_frequency('ye','Code description')
- print(table)
+   table = category_frequency('ye','Code description')
+   print(table)
