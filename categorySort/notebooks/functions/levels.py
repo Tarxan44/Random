@@ -12,6 +12,48 @@ from CategorySort import CategorySort
 
     (except drawing from the dictionary to see how many a category is mentioned and what years they are present)
 
+    High level attempt at the direction of this code:
+
+    1. Use BLS Survey data to create most specific levels as a groupby (categories)
+    2. Iterate thru the BLS category names and manually assign them a level Category
+        2a. Assigning the level category will automatically drop it in a path of the broadest category
+        (Category from BLS: Dryer, Assigned to Major Applicance(lvl3), automatically assigned to Housing Expense (lvl2), and Property(lvl1))
+    3. Levels can be change with a categories["category name"].change_level()
+    4. Levels can be quickly added and removed with a .add(), .remove()
+
+
+    Level 1 Categories{
+        "Property",
+        "Expenses/Income",
+        "Other",
+        "Clothing, Fabric, Accessories",
+    }
+
+    Level 2 Categories{
+        Property{Vehicles, Housing Expenses, Real Estate}
+        Expenses/Income{Leisure, Stocks&Bonds,Savings, Transport, Education, Health, Income, Other Expenditures}
+        Other{Catch all for things that dont fit anywhere else/Irrelevant/Errors}
+        Clothing, Fabric, Acessories{Clothing, Accessories, Fabric}
+    }
+
+    Level 3 Categories{
+        Physical Assets (exl vehicles){Real Estate, Records}
+        Vehicles{Car Purchases, Records, Maintenance}
+        Housing Expenses{Utilities, Construction}
+        Income{Employment, Gov Intervention}
+        Health{Insurance, Proactive Health, Reactive Health}
+        Clothing{Men's Clothes, Women's Clothes, Unisex, Youth}
+        Accessories{Jewlery, Baggage, Headwear, Shoes}
+        Fabric{Commericial, Residential}
+    }
+    Level 4 Categories{
+        Men's Clothing{}
+        Womens's Clothing{}
+        Youth Clothing{}
+        Shoes{Men, womens, youth}
+    }
+
+
     The purpose is to make the finalTable easy to read and categorize for the use of CategoryIQ api
 """
 
