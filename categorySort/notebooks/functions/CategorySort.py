@@ -5,7 +5,7 @@ class CategorySort():
    def category_frequency(path, target_variable):
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
-      #used for testing - to remove - write to an excel file 
+      #used for testing - to remove - write to an excel file
       #writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
 
 
@@ -21,7 +21,7 @@ class CategorySort():
          "File" : "category",
          "Code description" : "category",
          "First year" : "category",
-         "Last year" : "category"
+         "Last year" : "category",
       }
 
       #path to BLS Sheet - need try/catch
@@ -41,6 +41,8 @@ class CategorySort():
       #Gets categories in an category
       finalTable['Category'] = groups #finished up to here - name print in df but nothing else 
 
+     
+
       """ ---------------- Times Mentioned -------------- """
 
       #finds number of times each category is used - still need to move those numbers in the final table under 'Times Mentioned'
@@ -53,7 +55,7 @@ class CategorySort():
       times_mentioned = frequency_count.values()
       finalTable['Times Mentioned'] = times_mentioned # Put .values() array into the 'Times Mentioned' Column
       #print(finalTable)
-      finalTable.to_excel(writer) #  Write to Excel file (test.xlsx)
+      finalTable.to_excel(writer) #  Write to Excel file (finalTable.xlsx)
 
       """ --------------- END TIMES MENTIONED ----------------"""
 
