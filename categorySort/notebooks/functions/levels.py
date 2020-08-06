@@ -31,19 +31,19 @@ from CategorySort import CategorySort
 
     Level 2 Categories{
         Property{Vehicles, Housing Expenses, Real Estate}
-        Expenses/Income{Leisure, Stocks&Bonds,Savings, Transport, Education, Health, Income, Other Expenditures}
+        Expenses/Income{Leisure, Stocks&Bonds,Savings, Transport, Education, Health, Income, Other Expenditures, Food/Drink}
         Other{Catch all for things that dont fit anywhere else/Irrelevant/Errors}
         Clothing, Fabric, Acessories{Clothing, Accessories, Fabric}
     }
 
     Level 3 Categories{
-        Physical Assets (exl vehicles){Real Estate, Records}
-        Vehicles{Car Purchases, Records, Maintenance}
-        Housing Expenses{Utilities, Construction}
-        Income{Employment, Gov Intervention}
+        Physical Assets (exl vehicles){Real Estate, Records, Other Assets}
+        Vehicles{Car Purchases, Records, Car Maintenance}
+        Housing Expenses{Utilities, Construction, House Maintenance}
+        Income{Employment, Gov Assistance}
         Health{Insurance, Proactive Health, Reactive Health}
         Clothing{Men's Clothes, Women's Clothes, Unisex, Youth}
-        Accessories{Jewlery, Baggage, Headwear, Shoes}
+        Accessories{Jewlery, Baggage, Headwear, Shoes, Electronics}
         Fabric{Commericial, Residential}
     }
     Level 4 Categories{
@@ -51,6 +51,12 @@ from CategorySort import CategorySort
         Womens's Clothing{}
         Youth Clothing{}
         Shoes{Men, womens, youth}
+    }
+
+    Other Categories{
+        NaN - not applicable
+        Question - unsure where to place/new category needed
+
     }
 
 
