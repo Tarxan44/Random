@@ -6,14 +6,14 @@ class CategorySort():
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
       #used for testing - to remove - write to an excel file
-      #writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
+      writer = pd.ExcelWriter('categorySort/notebooks/data/finalTable.xlsx')
 
 
       #Write to a file to check outputs
       #df.to_excel(writer)
 
       #  future Column names on final output table/intitialization stuffs
-      names = ['Category', 'Times Mentioned', 'Years Absent', 'Years Present']
+      names = ['Category', 'Times Mentioned', 'Years Active']
       finalTable = pd.DataFrame(columns = names)
 
       #Sets up datatypes and column names to pull from sheet
@@ -55,7 +55,7 @@ class CategorySort():
       times_mentioned = frequency_count.values()
       finalTable['Times Mentioned'] = times_mentioned # Put .values() array into the 'Times Mentioned' Column
       #print(finalTable)
-      finalTable.to_excel(writer) #  Write to Excel file (finalTable.xlsx)
+      
 
       """ --------------- END TIMES MENTIONED ----------------"""
 
@@ -99,10 +99,13 @@ class CategorySort():
       """--------------END YEARS ACTIVE -------------------"""
       
       #Close the excel writer at the end
-      #writer.save()
+      #write results to FinalTable excel
+      finalTable.to_excel(writer) #  Write to Excel file (finalTable.xlsx)
+      writer.save()
+
       return finalTable
       
-      
+
  #runs the function
- table = category_frequency('ye','Code description')
- print(table)
+   table = category_frequency('','Code description')
+   print(table)
