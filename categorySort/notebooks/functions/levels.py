@@ -20,10 +20,10 @@ from CategorySort import CategorySort
         (Category from BLS: Dryer, Assigned to Major Applicance(lvl3), automatically assigned to Housing Expense (lvl2), and Property(lvl1))
     3. Levels can be change with a categories["category name"].change_level()
     4. Levels can be quickly added and removed with a .add(), .remove()
-
+    5. Vision for the code is to have have a table like below uploaded to SQl database
     Table Should look:
-    Level 1{Name, Subcategory Names, Market Cap (Sum of subcategories)}
-    Level 2{Name, Subcategory Names, Market Cap (Sum of subcategories)}
+    Level 1{Name, Subcategory Names, Market info}
+    Level 2{Name, Subcategory Names, Market info}
     ...
     Invisible Level 6(categories from BLS survey){Categories,}
 
@@ -31,32 +31,37 @@ from CategorySort import CategorySort
     Level 1 Categories{
         "Property",
         "Expenses/Income",
-        "Other",
         "Clothing, Fabric, Accessories",
+        "Other"
     }
 
     Level 2 Categories{
-        Property{Vehicles, Housing Expenses, Real Estate}
-        Expenses/Income{Leisure, Stocks&Bonds,Savings, Transport, Education, Health, Income, Other Expenditures, Food/Drink}
+        Property{Vehicles, Housing Expenses, Physical Assets, Real Estate}
+        Expenses/Income{Leisure, Financial Assests, Transport, Education, Health, Income, Other Expenditures, Consumables}
         Other{Catch all for things that dont fit anywhere else/Irrelevant/Errors}
         Clothing, Fabric, Acessories{Clothing, Accessories, Fabric}
     }
+    Changes: Savings, Stocks&Bonds combined to Financial Assests, Food/Drink changed to Consumables
 
     Level 3 Categories{
-        Physical Assets (exl vehicles){Real Estate, Records, Other Assets}
-        Vehicles{Car Purchases, Records, Car Maintenance}
-        Housing Expenses{Utilities, Construction, House Maintenance}
-        Income{Employment, Gov Assistance}
-        Health{Insurance, Proactive Health, Reactive Health}
-        Clothing{Men's Clothes, Women's Clothes, Unisex, Youth}
-        Accessories{Jewlery, Baggage, Headwear, Shoes, Electronics}
-        Fabric{Commericial, Residential}
+        Other Expenditures{}
+        Consumables{Food, Drinks, Alcohol}
+        Vehicles{Car, Car Upkeep, Other Vehicles}
+        Housing Expenses{Utilities, Construction, House Upkeep, Furniture}
+        Income{Employment, Government Assitance}
+        Health{Insurance, Clinical Action, Health Equipment}
+        Clothing{Men's Clothes, Women's Clothes, Other Clothing, Youth Clothing}
+        Accessories{Jewlery, Headwear, Shoes, Electronics}
     }
+    Changes: House Maintenance changed to House Upkeep, Car Maintenance changed to Car Upkeep, Car Purchases changed to Cars,
+     added Other Vehicles, Removed Records from vehicles, housing expenses, added furniture under Housing Expenses,
+     Gov Assitance changed to Government Assistance, Proactive Health, Reactive Health removed, changed to Clinical Action, Health Equipment,
+     Unisex changed to Other Clothing, removed Baggage, Removed Real Estate, Added Consumables, added Other Expenditures, 
+
     Level 4 Categories{
-        Men's Clothing{}
-        Womens's Clothing{}
-        Youth Clothing{}
-        Shoes{Men, womens, youth}
+        Youth Clothing{Boys, Girls, Infants}
+        Car{Model of cars}
+        
     }
 
     Other Categories{
