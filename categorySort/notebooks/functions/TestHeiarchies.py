@@ -1,5 +1,6 @@
 from imports import *
 class CategorySort():   
+   """ Not yet a relevant code block, disregard this page for now"""
   
 
    def category_frequency(path, target_variable):
@@ -24,9 +25,11 @@ class CategorySort():
          
       }
       """
+      
+   
       #path to BLS Sheet - need try/catch
       if not path:
-         path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
+         path = 'categorySort/notebooks/data/categories.csv'
 
       #Read sheet in and replace NaNs in Last year column with present year and converts to int for looks
       megaSheet = pd.read_excel(path,sheet_name=2)
@@ -103,8 +106,24 @@ class CategorySort():
       writer.save()
 
       return test_for_heiarchies
-      
 
+   file1 = pd.read_excel('categorySort/notebooks/data/categories.csv')
+   file2 = pd.read_excel('categorySort/notebooks/data/categories_.csv')
+   file3 = pd.read_excel('categorySort/notebooks/data/categories2.csv')
+
+   df = pd.concat(file1, file2, file3)
+   
+   test_for_heiarchies = df.groupby('Code description').count()
+
+   writer = pd.ExcelWriter('categorySort/notebooks/data/test_for_heiarchies.xlsx')
+   test_for_heiarchies.to_excel(writer) #  Write to Excel file (finalTable.xlsx)
+   writer.save()
+   print(test_for_heiarchies)
+
+
+
+'''
  #runs the function
    table = category_frequency('','Code description')
    print(table)
+   '''
