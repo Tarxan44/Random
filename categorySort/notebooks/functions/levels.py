@@ -21,6 +21,12 @@ from CategorySort import CategorySort
     3. Levels can be change with a categories["category name"].change_level()
     4. Levels can be quickly added and removed with a .add(), .remove()
 
+    Table Should look:
+    Level 1{Name, Subcategory Names, Market Cap (Sum of subcategories)}
+    Level 2{Name, Subcategory Names, Market Cap (Sum of subcategories)}
+    ...
+    Invisible Level 6(categories from BLS survey){Categories,}
+
 
     Level 1 Categories{
         "Property",
