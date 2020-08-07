@@ -44,30 +44,41 @@ from CategorySort import CategorySort
     Changes: Savings, Stocks&Bonds combined to Financial Assests, Food/Drink changed to Consumables
 
     Level 3 Categories{
-        Other Expenditures{}
+        Other Expenditures{Fees, Insurance}
         Consumables{Food, Drinks, Alcohol}
         Vehicles{Car, Car Upkeep, Other Vehicles}
         Housing Expenses{Utilities, Construction, House Upkeep, Furniture}
         Income{Employment, Government Assitance}
-        Health{Insurance, Clinical Action, Health Equipment}
+        Health{Health Insurance, Clinical Action, Health Equipment}
         Clothing{Men's Clothes, Women's Clothes, Other Clothing, Youth Clothing}
-        Accessories{Jewlery, Headwear, Shoes, Electronics}
+        Accessories{Jewlery, Headwear, Shoes, Electronics, Cosmetics, Hygiene}
+        Transport{Rental, Fares}
     }
     Changes: House Maintenance changed to House Upkeep, Car Maintenance changed to Car Upkeep, Car Purchases changed to Cars,
      added Other Vehicles, Removed Records from vehicles, housing expenses, added furniture under Housing Expenses,
      Gov Assitance changed to Government Assistance, Proactive Health, Reactive Health removed, changed to Clinical Action, Health Equipment,
-     Unisex changed to Other Clothing, removed Baggage, Removed Real Estate, Added Consumables, added Other Expenditures, 
+     Unisex changed to Other Clothing, removed Baggage, Removed Real Estate, Added Consumables, added Other Expenditures, added Transport,
+     added Cosmetics, Insurance changed to Health Insurance, Insurance added to other expenditures
 
     Level 4 Categories{
-        Youth Clothing{Boys, Girls, Infants}
-        Car{Model of cars}
+        Youth Clothing{Boys Clothing, Girls Clothing, Infants Clothing}
+        Car{Acura, Alfa Romeo, AMC, Aston Martin, Audi, Austin, Bentley, BMW,
+        Buick, Cadillac, Chevrolet, Checker, Chrysler, Citroen,Daihastu, Datsun, Dodge,
+        Eagle, English Ford, Ferrari, Fiat, Ford, Geo, GMC, Honda, Hyundai, Infiniti,
+        International, Isuzu, Jaguar, Jeep, Jensen, Kia, Lancia, Land Rover, Lexus, Lincoln, Lotus,
+        Maserati, Mazda, Mercedes, Mercury, MG, Mitsubishi, Mini, NSU, Oldsmobile, Opel, 
+        Pace, Packard, Peugot, Plymouth, Pontiac, Porche, Ram, Rambler, Range, Renault,
+        Rolls Royce, Rover, SAAB, Saturn, Shelby, Simca, Studebaker, Suburu, Sunbeam, Suzuki, Toyota, Triumph,
+        Volkswagen, Volvo, Willys, Winnebago,Other}
+        Employment{Government Employment, Regular Employment}
         
-    }
-
     Other Categories{
         NaN - not applicable
         Question - unsure where to place/new category needed
-
+        Air Condition combo? Row 371 -Heating, AC
+        Dishwasher combo row 1313
+        Downloading Audio/Video Row 1386
+        Stove and oven? 3217, 3236, 4355
     }
 
 
