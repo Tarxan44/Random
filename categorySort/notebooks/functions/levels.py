@@ -125,7 +125,23 @@ class levels():
         """ Problem: How does one group these items in nested groups? It should be like a tree with its branches, the higher you go the less thick the branch is but the more leaves that grow """
         for i in mentioned_byVariable:
             mentioned_byVariable.groupby(i)
-            
+
+    def cleaningStage(df):
+        #removes NaN rows
+        clean_df = df[df['Category Placement'] != 'NaN']
+        return clean_df
+    def combination_layer(df)
+        #combines any categories that have been marked to have similiar names to the desired name
+        
+
+
+
+
+
+
+
+        
+
         
         
     
