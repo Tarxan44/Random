@@ -107,12 +107,12 @@ class CategorySort():
 
       return test_for_heiarchies
 
-   file1 = pd.read_excel('categorySort/notebooks/data/categories.csv')
-   file2 = pd.read_excel('categorySort/notebooks/data/categories_.csv')
-   file3 = pd.read_excel('categorySort/notebooks/data/categories2.csv')
-
-   df = pd.concat(file1, file2, file3)
-   
+   file1 = pd.read_csv('categorySort/notebooks/data/categories.csv')
+   file2 = pd.read_csv('categorySort/notebooks/data/categories_.csv')
+   file3 = pd.read_csv('categorySort/notebooks/data/categories2.csv')
+   frame = [file1, file2, file3]
+   df = pd.concat(frame)
+   print(df)
    test_for_heiarchies = df.groupby('Code description').count()
 
    writer = pd.ExcelWriter('categorySort/notebooks/data/test_for_heiarchies.xlsx')

@@ -37,28 +37,23 @@ from CategorySort import CategorySort
 
     Level 2 Categories{
         Property{Vehicles, Housing Expenses, Physical Assets, Real Estate}
-        Expenses/Income{Leisure, Financial Assests, Transport, Education, Health, Income, Other Expenditures, Consumables}
+        Expenses/Income{Leisure, Financial Assets, Transport, Education, Health, Income, Other Expenditures, Consumables}
         Other{Catch all for things that dont fit anywhere else/Irrelevant/Errors}
-        Clothing, Fabric, Acessories{Clothing, Accessories, Fabric}
+        Clothing, Fabric, Accessories{Clothing, Accessories, Fabric}
     }
-    Changes: Savings, Stocks&Bonds combined to Financial Assests, Food/Drink changed to Consumables
+    Changes: Savings, Stocks&Bonds combined to Financial Assets, Food/Drink changed to Consumables
 
     Level 3 Categories{
         Other Expenditures{Fees, Insurance}
         Consumables{Food, Drinks, Alcohol}
         Vehicles{Car, Car Upkeep, Other Vehicles}
         Housing Expenses{Utilities, Construction, House Upkeep, Furniture}
-        Income{Employment, Government Assitance}
+        Income{Employment, Government Assistance}
         Health{Health Insurance, Clinical Action, Health Equipment}
         Clothing{Men's Clothes, Women's Clothes, Other Clothing, Youth Clothing}
-        Accessories{Jewlery, Headwear, Shoes, Electronics, Cosmetics, Hygiene}
+        Accessories{Jewelery, Headwear, Shoes, Electronics, Cosmetics, Hygiene}
         Transport{Rental, Fares}
     }
-    Changes: House Maintenance changed to House Upkeep, Car Maintenance changed to Car Upkeep, Car Purchases changed to Cars,
-     added Other Vehicles, Removed Records from vehicles, housing expenses, added furniture under Housing Expenses,
-     Gov Assitance changed to Government Assistance, Proactive Health, Reactive Health removed, changed to Clinical Action, Health Equipment,
-     Unisex changed to Other Clothing, removed Baggage, Removed Real Estate, Added Consumables, added Other Expenditures, added Transport,
-     added Cosmetics, Insurance changed to Health Insurance, Insurance added to other expenditures
 
     Level 4 Categories{
         Youth Clothing{Boys Clothing, Girls Clothing, Infants Clothing}
