@@ -26,8 +26,19 @@ from CategorySort import CategorySort
     Level 2{Name, Subcategory Names, Market info}
     ...
     Invisible Level 6(categories from BLS survey){Categories,}
-
-
+"""
+    "levels": [
+        {
+            "Property":"level1_Property",
+            "Expenses/Income":"level1_E/I",
+            "Clothing, Fabric, Accessories":"level1_CFA",
+            "Other":"level1_Others";
+        },
+        {
+            "Vehicles":""
+        }
+    ]
+"""
     Level 1 Categories{
         "Property",
         "Expenses/Income",
@@ -37,23 +48,28 @@ from CategorySort import CategorySort
 
     Level 2 Categories{
         Property{Vehicles, Housing Expenses, Physical Assets, Real Estate}
-        Expenses/Income{Leisure, Financial Assets, Transport, Education, Health, Income, Other Expenditures, Consumables}
+        Expenses/Income{Leisure, Financial Assests, Transport, Education, Health, Income, Other Expenditures, Consumables}
         Other{Catch all for things that dont fit anywhere else/Irrelevant/Errors}
-        Clothing, Fabric, Accessories{Clothing, Accessories, Fabric}
+        Clothing, Fabric, Acessories{Clothing, Accessories, Fabric}
     }
-    Changes: Savings, Stocks&Bonds combined to Financial Assets, Food/Drink changed to Consumables
+    Changes: Savings, Stocks&Bonds combined to Financial Assests, Food/Drink changed to Consumables
 
     Level 3 Categories{
         Other Expenditures{Fees, Insurance}
         Consumables{Food, Drinks, Alcohol}
         Vehicles{Car, Car Upkeep, Other Vehicles}
         Housing Expenses{Utilities, Construction, House Upkeep, Furniture}
-        Income{Employment, Government Assistance}
+        Income{Employment, Government Assitance}
         Health{Health Insurance, Clinical Action, Health Equipment}
         Clothing{Men's Clothes, Women's Clothes, Other Clothing, Youth Clothing}
-        Accessories{Jewelery, Headwear, Shoes, Electronics, Cosmetics, Hygiene}
+        Accessories{Jewlery, Headwear, Shoes, Electronics, Cosmetics, Hygiene}
         Transport{Rental, Fares}
     }
+    Changes: House Maintenance changed to House Upkeep, Car Maintenance changed to Car Upkeep, Car Purchases changed to Cars,
+     added Other Vehicles, Removed Records from vehicles, housing expenses, added furniture under Housing Expenses,
+     Gov Assitance changed to Government Assistance, Proactive Health, Reactive Health removed, changed to Clinical Action, Health Equipment,
+     Unisex changed to Other Clothing, removed Baggage, Removed Real Estate, Added Consumables, added Other Expenditures, added Transport,
+     added Cosmetics, Insurance changed to Health Insurance, Insurance added to other expenditures
 
     Level 4 Categories{
         Youth Clothing{Boys Clothing, Girls Clothing, Infants Clothing}
@@ -76,12 +92,13 @@ from CategorySort import CategorySort
         Stove and oven? 3217, 3236, 4355
     }
 
+    ***Updating the sheet requires a complete recategorization***
 
     The purpose is to make the finalTable easy to read and categorize for the use of CategoryIQ api
 """
 
 class levels():
-
+    #going with a tagging method
 
     def defining_levels(path, target_level):
         """ Test xlsx for seeing the output of the level schemes without messing up FinalTable """
@@ -121,13 +138,56 @@ class levels():
         for i in mentioned_byVariable:
             mentioned_byVariable.groupby(i)
 
-    def cleaningStage(df):
+    def cleaning_layer(df):
         #removes NaN rows
         clean_df = df[df['Category Placement'] != 'NaN']
         return clean_df
-    def combination_layer(df)
+
+    def combination_layer(df):
         #combines any categories that have been marked to have similiar names to the desired name
         
+
+    def tagging_method(df):
+        #creates df
+        names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variable', 'Years Active']
+        final_df = pd.Dataframe(columns = names)
+        for x in size(df)
+            #call code desc
+            #insert code desc in df
+
+            #call combined as level5
+            #insert code desciption for respective rows if NaN
+            #insert baseLevel into temp_df
+
+            #iterate thru baseLevel to determine level path
+            #rental -> transport -> leisure -> Income/Expenses
+            atTop = False
+            counter = 0
+            category = temp_df['baseLevel'][x] #grab baseLevel column, row x
+            while atTop:
+                #find path here
+                #counter for number levels
+                #check to make sure not running thru if loops more than once
+                
+                # one for each category
+                #Example: x=213, so category = 'Rental'
+                #'Rental' is not in 'level4' so no assignments are made
+                #if 'Rental' is in 'Level3' then 'Rental' = Level3 and category = Transport 
+                #if 'Transport' is in 'leve2' then 'Transport' = Level2 and category = 'Expenses/Income'
+                #then since category = "Expenses/Income" - 'Expenses/Income' = level1 and atTop is true so loop restarts
+                if category in level4
+                    final_df['Level4'] = category
+                    category = 
+                if category in level3
+
+                if category in level2
+
+                if category in level1
+
+
+                if category = ["Property","Expenses/Income","Clothing, Fabric, Accessories","Other"]:
+                    atTop = True
+                counter = counter +1
 
 
 
