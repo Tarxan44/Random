@@ -26,7 +26,7 @@ from CategorySort import CategorySort
     Level 2{Name, Subcategory Names, Market info}
     ...
     Invisible Level 6(categories from BLS survey){Categories,}
-"""
+
     "levels": [
         {
             "Property":"level1_Property",
@@ -38,6 +38,10 @@ from CategorySort import CategorySort
             "Vehicles":""
         }
     ]
+"""
+
+
+    
 """
     Level 1 Categories{
         "Property",
@@ -97,47 +101,36 @@ from CategorySort import CategorySort
     The purpose is to make the finalTable easy to read and categorize for the use of CategoryIQ api
 """
 
+#Create a dictionary of info for each category 
+    cat_info_dict = {
+        'Property': {
+            'level': 'level1',
+            'sub_cats': ['Vehicles', 'Housing Expenses', 'Physical Assets', 'Real Estate'],
+        },
+        'Vehicles':{
+            'level':'level2',
+            'sub_cats': ['Car','Car Upkeep', 'Other Vehicles'],
+        },
+        'Car':{
+            'level':'level3',
+            'sub_cats': ['Acura', 'Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
+        'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
+        'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
+        'International', 'Isuzu', 'Jaguar', 'Jeep', 'Jensen', 'Kia', 'Lancia', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus',
+        'Maserati', 'Mazda', 'Mercedes', 'Mercury', 'MG', 'Mitsubishi', 'Mini', 'NSU', 'Oldsmobile', 'Opel', 
+        'Pace', 'Packard', 'Peugot', 'Plymouth', 'Pontiac', 'Porche', 'Ram', 'Rambler', 'Range', 'Renault',
+        'Rolls Royce', 'Rover', 'SAAB', 'Saturn', 'Shelby', 'Simca', 'Studebaker', 'Suburu', 'Sunbeam', 'Suzuki', 'Toyota', 'Triumph',
+        'Volkswagen', 'Volvo', 'Willys', 'Winnebago','Other'],
+        },
+    }
+
+
+
+
 class levels():
     #going with a tagging method
 
-    def defining_levels(path, target_level):
-        """ Test xlsx for seeing the output of the level schemes without messing up FinalTable """
-        #used for testing - to remove - write to an excel file 
-        writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
-
-        #Write to a file to check outputs
-        #df.to_excel(writer)
-
-        #  future Column names on final output table/intitialization stuffs
-        names = ['Variable','Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5']
-        levelTable = pd.DataFrame(columns = names)
-
-        #Sets up datatypes and column names to pull from sheet
-        dtypes2 = {
-            "Code description" : "category",
-            "Variable " : "category" # Note: typo by bls, space ( ) after Variable
-        }
-        
-        #path to BLS Sheet
-        path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
-
-        megaSheet = pd.read_excel(path,sheet_name=2,dtype = dtypes2, usecols = list(dtypes2))
-
-        #creates a DataFrameGroupBys with each category
-        mentioned_byVariable = megaSheet.groupby(['Variable '])
-        groups = [name for name,unused_df in mentioned_byVariable]
-        
-
-        #Gets the various catagories within level1 (Variable)
-        #levelTable['Variable'] = megaSheet['Variable '] # All 'Variable ' values (not just unique ones)
-        levelTable['Variable'] = megaSheet['Variable '].unique() #finished up to here - name print in df but nothing else 
-        print(levelTable)
-
-
-        """ Problem: How does one group these items in nested groups? It should be like a tree with its branches, the higher you go the less thick the branch is but the more leaves that grow """
-        for i in mentioned_byVariable:
-            mentioned_byVariable.groupby(i)
-
+    
     def cleaning_layer(df):
         #removes NaN rows
         clean_df = df[df['Category Placement'] != 'NaN']
@@ -202,3 +195,49 @@ class levels():
     
 
         
+
+
+
+
+
+
+"""
+
+        def defining_levels(path, target_level):
+        # Test xlsx for seeing the output of the level schemes without messing up FinalTable 
+        #used for testing - to remove - write to an excel file 
+        writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
+
+        #Write to a file to check outputs
+        #df.to_excel(writer)
+
+        #  future Column names on final output table/intitialization stuffs
+        names = ['Variable','Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5']
+        levelTable = pd.DataFrame(columns = names)
+
+        #Sets up datatypes and column names to pull from sheet
+        dtypes2 = {
+            "Code description" : "category",
+            "Variable " : "category" # Note: typo by bls, space ( ) after Variable
+        }
+        
+        #path to BLS Sheet
+        path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
+
+        megaSheet = pd.read_excel(path,sheet_name=2,dtype = dtypes2, usecols = list(dtypes2))
+
+        #creates a DataFrameGroupBys with each category
+        mentioned_byVariable = megaSheet.groupby(['Variable '])
+        groups = [name for name,unused_df in mentioned_byVariable]
+        
+
+        #Gets the various catagories within level1 (Variable)
+        #levelTable['Variable'] = megaSheet['Variable '] # All 'Variable ' values (not just unique ones)
+        levelTable['Variable'] = megaSheet['Variable '].unique() #finished up to here - name print in df but nothing else 
+        print(levelTable)
+
+
+        # Problem: How does one group these items in nested groups? It should be like a tree with its branches, the higher you go the less thick the branch is but the more leaves that grow 
+        for i in mentioned_byVariable:
+            mentioned_byVariable.groupby(i)
+"""
