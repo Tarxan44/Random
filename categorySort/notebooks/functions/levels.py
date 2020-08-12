@@ -168,7 +168,7 @@ class levels():
         #creates df
         names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variable', 'Years Active']
         final_df = pd.Dataframe(columns = names)
-        for x in size(df)
+        for x in 5 #size(df)
             #call code desc
             #insert code desc in df
 
@@ -180,21 +180,73 @@ class levels():
             #rental -> transport -> leisure -> Income/Expenses
             atTop = False
             counter = 0
-            category = temp_df['baseLevel'][x] #grab baseLevel column, row x
+            current_category = df['baseLevel'][x] #grab baseLevel column, row x
+            
+            for cat1 in cat_info_dict['level1']:
+                for cat2 in cat1['level2']:
+                    for cat3 in cat2['level3']:
+                        for cat4 in cat3['level4']:
+                            for cat5 in cat4['level5']:
+                                if current_category == cat5:
+                                    final_df['Level5'] = current_category
+                                    final_df['Level4'] = cat4
+                                    final_df['Level3'] = cat3
+                                    final_df['Level2'] = cat2
+                                    final_df['Level1'] = cat1
+                                    break
+                                else:
+                                    final_df['Level5'] = 'None'
+                        if current_category == cat4:
+                            final_df['Level4'] = current_category
+                            final_df['Level3'] = cat3
+                            final_df['Level2'] = cat2
+                            final_df['Level1'] = cat1
+                            break
+                        else:
+                            final_df['Level4'] = 'None'
+                    if current_category == cat3:
+                        final_df['Level3'] = current_category
+                        final_df['Level2'] = cat2
+                        final_df['Level1'] = cat1
+                        break
+                    else:
+                            final_df['Level3'] = 'None'
+                if current_category == cat2
+                    final_df['Level2'] = current_category
+                    final_df['Level1'] = cat1   
+                    break             
+                else:
+                    final_df['Level2'] = 'None'
+            if current_category == cat1:
+                final_df['Level1'] = current_category
+                break
+                
+        
+
+
+
+
+
+
+
             while atTop:
                 #find path here
                 #counter for number levels
                 #check to make sure not running thru if loops more than once
                 
-                # one for each category
+                
                 #Example: x=213(line 213), where category = 'Rental'
                 #'Rental' is not in 'level4' so no assignments are made
                 #if 'Rental' is in 'Level3' then 'Rental' = Level3 and category = Transport 
-                #if 'Transport' is in 'leve2' then 'Transport' = Level2 and category = 'Expenses/Income'
+                #if 'Transport' is in 'level2' then 'Transport' = Level2 and category = 'Expenses/Income'
                 #then since category = "Expenses/Income" , 'Expenses/Income' = level1 and atTop is true so loop restarts
-                if category in sub_cats_lvl5
-                    final_df['Level5'] = category
-                    category = #
+
+
+
+
+                if current_category in sub_cats_lvl5
+                    final_df['Level5'] = current_category
+                    current_category = 
                     
 
                 #  if category(i.e 'Acura') is in sub_categories of a level 3 category ('Car'), then category is a level 4 
