@@ -100,20 +100,20 @@ from CategorySort import CategorySort
 
     The purpose is to make the finalTable easy to read and categorize for the use of CategoryIQ api
 """
-
+class levels():
 #Create a dictionary of info for each category 
     cat_info_dict = {
         'Property': {
             'level': 'level1',
-            'sub_cats': ['Vehicles', 'Housing Expenses', 'Physical Assets', 'Real Estate'],
+            'sub_cats_lvl2': ['Vehicles', 'Housing Expenses', 'Physical Assets', 'Real Estate'],
         },
         'Vehicles':{
             'level':'level2',
-            'sub_cats': ['Car','Car Upkeep', 'Other Vehicles'],
+            'sub_cats_lvl3': ['Car','Car Upkeep', 'Other Vehicles'],
         },
         'Car':{
             'level':'level3',
-            'sub_cats': ['Acura', 'Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
+            'sub_cats_lvl4': ['Acura', 'Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
         'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
         'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
         'International', 'Isuzu', 'Jaguar', 'Jeep', 'Jensen', 'Kia', 'Lancia', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus',
@@ -124,10 +124,17 @@ from CategorySort import CategorySort
         },
     }
 
+    """
+    Desired Output                                                                                    These last three are already completed in CategorySort.py
+    Level1 -------------- Level2 ----------- Level3 ------------ Level4 ----------- Level5 ---------- Code Description ----------File ------------- Years Active
+    Property              Vehicles           Car                 Acura              NaN(Or 'Not')     Acura Integra              OVB                1996 - 2003
+    ...
+
+    5050 ish lines, printed to excel sheet (from completedHeiarachy.xlsx)
+    """
 
 
 
-class levels():
     #going with a tagging method
 
     
@@ -163,22 +170,33 @@ class levels():
                 #check to make sure not running thru if loops more than once
                 
                 # one for each category
-                #Example: x=213, so category = 'Rental'
+                #Example: x=213(line 213), where category = 'Rental'
                 #'Rental' is not in 'level4' so no assignments are made
                 #if 'Rental' is in 'Level3' then 'Rental' = Level3 and category = Transport 
                 #if 'Transport' is in 'leve2' then 'Transport' = Level2 and category = 'Expenses/Income'
-                #then since category = "Expenses/Income" - 'Expenses/Income' = level1 and atTop is true so loop restarts
-                if category in level4
+                #then since category = "Expenses/Income" , 'Expenses/Income' = level1 and atTop is true so loop restarts
+                if category in sub_cats_lvl5
+                    final_df['Level5'] = category
+                    category = #
+                    
+
+                #  if category(i.e 'Acura') is in sub_categories of a level 3 category ('Car'), then category is a level 4 
+                #  (we have to compensate for the lack of dict for the most specific categories)
+                if category = sub_cats_lvl4 
                     final_df['Level4'] = category
-                    category = 
-                if category in level3
+                    category = #new broader category that will become level3
+                    """ How do i relate back to the broader instance 'Cars' after defining 'Acura' as it's subcategory?"""
 
-                if category in level2
+                if category in sub_cats_lvl3
+                    final_df['Level3'] = category
+                    category = #
 
-                if category in level1
-
+                if category in sub_cats_lvl2
+                    final_df['Level2'] = category
+                    category = #
 
                 if category = ["Property","Expenses/Income","Clothing, Fabric, Accessories","Other"]:
+                    final_df['Level1'] = category
                     atTop = True
                 counter = counter +1
 
