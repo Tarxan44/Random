@@ -102,44 +102,45 @@ from CategorySort import CategorySort
 """
 class levels():
 #Create a dictionary of info for each category 
-    cat_info_dict = {
-        'Property': {
-            'level': 'level1',
-            'sub_cats_lvl2': [
-                {
-                'level': 'level2'
-                'level_name':'Vehicles'
-                },   
-                {   
-                'level': 'level2'
-                'level_name':'Housing Expenses'
-                },
-                {
-                    'level': 'level2'
-                    'level_name'
-                }   , 'Physical Assets', 'Real Estate'],
-
-        
-        
-        
-        
-        },
-        'Vehicles':{
-            'level':'level2',
-            'sub_cats_lvl3': ['Car','Car Upkeep', 'Other Vehicles'],
-        },
-        'Car':{
-            'level':'level3',
-            'sub_cats_lvl4': ['Acura', 'Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
-        'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
-        'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
-        'International', 'Isuzu', 'Jaguar', 'Jeep', 'Jensen', 'Kia', 'Lancia', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus',
-        'Maserati', 'Mazda', 'Mercedes', 'Mercury', 'MG', 'Mitsubishi', 'Mini', 'NSU', 'Oldsmobile', 'Opel', 
-        'Pace', 'Packard', 'Peugot', 'Plymouth', 'Pontiac', 'Porche', 'Ram', 'Rambler', 'Range', 'Renault',
-        'Rolls Royce', 'Rover', 'SAAB', 'Saturn', 'Shelby', 'Simca', 'Studebaker', 'Suburu', 'Sunbeam', 'Suzuki', 'Toyota', 'Triumph',
-        'Volkswagen', 'Volvo', 'Willys', 'Winnebago','Other'],
-        },
-    }
+    test_dict = [
+      { 
+         'category_name': 'categories',
+         'level_data': [ 
+               { 
+                  'level': 1,
+                  'level_name':'Property',
+                  'sub_categories': ['Vehicles','Housing Expenses','Physical Assets', 'Real Estate'],
+               },
+               { 
+                  'level': 2,
+                  'level_name': 'Vehicles',
+                  'sub_categories': ['Car','Car Upkeep', 'Other Vehicles'],
+               },
+               { 
+                  'level': 3,
+                  'level_name': 'Car',
+                  'sub_categories': ['Acura', 'Alfa Romeo','AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
+                    'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
+                    'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
+                    'International', 'Isuzu', 'Jaguar', 'Jeep', 'Jensen', 'Kia', 'Lancia', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus',
+                    'Maserati', 'Mazda', 'Mercedes', 'Mercury', 'MG', 'Mitsubishi', 'Mini', 'NSU', 'Oldsmobile', 'Opel', 
+                    'Pace', 'Packard', 'Peugot', 'Plymouth', 'Pontiac', 'Porche', 'Ram', 'Rambler', 'Range', 'Renault',
+                    'Rolls Royce', 'Rover', 'SAAB', 'Saturn', 'Shelby', 'Simca', 'Studebaker', 'Suburu', 'Sunbeam', 'Suzuki', 'Toyota', 'Triumph',
+                    'Volkswagen', 'Volvo', 'Willys', 'Winnebago','Other'],
+               },
+               { 
+                  'level': 2,
+                  'level_name': 'Housing Expenses',
+                  'sub_categories': ['Utilities', 'Construction', 'House Upkeep', 'Furniture'],
+               },
+               { 
+                  'level': 1,
+                  'level_name': 'Expenses/Income',
+                  'sub_categories': ['Leisure', 'Financial Assests', 'Transport', 'Education', 'Health', 'Income', 'Other Expenditures', 'Consumables'],
+               },
+         ] 
+      }
+   ]
 
     """
     Desired Output                                                                                    These last three are already completed in CategorySort.py
@@ -161,14 +162,20 @@ class levels():
         return clean_df
 
     def combination_layer(df):
-        #combines any categories that have been marked to have similiar names to the desired name
-        
+        #combines any categories that have been marked to have similiar names to the desired name into a column BaseLevel
+        function_df = pd.Dataframe(columns = ['Code Description', 'BaseLevel'])
+        for x in size(df):
+            if df['Combined'][x] == 'NaN':
+                function_df['BaseLevel'][x] = df['Code Description'][x]
+            else:
+                function_df['Base Level'][x] = df['Combined'][x]
+        return function+df
 
     def tagging_method(df):
         #creates df
         names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variable', 'Years Active']
         final_df = pd.Dataframe(columns = names)
-        for x in 5 #size(df)
+        for x in range(5): #size(df)
             #call code desc
             #insert code desc in df
 
@@ -178,8 +185,9 @@ class levels():
 
             #iterate thru baseLevel to determine level path
             #rental -> transport -> leisure -> Income/Expenses
-            atTop = False
-            counter = 0
+            # atTop = False
+            # category_path = []
+            #counter = 0
             current_category = df['baseLevel'][x] #grab baseLevel column, row x
             
             for cat1 in cat_info_dict['level1']:
@@ -211,7 +219,7 @@ class levels():
                         break
                     else:
                             final_df['Level3'] = 'None'
-                if current_category == cat2
+                if current_category == cat2:
                     final_df['Level2'] = current_category
                     final_df['Level1'] = cat1   
                     break             
@@ -228,7 +236,7 @@ class levels():
 
 
 
-
+'''
             while atTop:
                 #find path here
                 #counter for number levels
@@ -240,13 +248,9 @@ class levels():
                 #if 'Rental' is in 'Level3' then 'Rental' = Level3 and category = Transport 
                 #if 'Transport' is in 'level2' then 'Transport' = Level2 and category = 'Expenses/Income'
                 #then since category = "Expenses/Income" , 'Expenses/Income' = level1 and atTop is true so loop restarts
-
-
-
-
-                if current_category in sub_cats_lvl5
-                    final_df['Level5'] = current_category
-                    current_category = 
+                if category in sub_cats_lvl5
+                    final_df['Level5'] = category
+                    print(list(mydict.keys())[list(mydict.values()).index(category)])
                     
 
                 #  if category(i.e 'Acura') is in sub_categories of a level 3 category ('Car'), then category is a level 4 
@@ -269,7 +273,7 @@ class levels():
                     atTop = True
                 counter = counter +1
 
-
+'''
 
 
 

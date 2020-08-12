@@ -106,8 +106,6 @@ class CategorySort():
       return finalTable
       
 
- #runs the function
-   #table = category_frequency('','Code description')
-   #print(table)
+
 
    
