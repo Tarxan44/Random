@@ -105,7 +105,24 @@ class levels():
     cat_info_dict = {
         'Property': {
             'level': 'level1',
-            'sub_cats_lvl2': ['Vehicles', 'Housing Expenses', 'Physical Assets', 'Real Estate'],
+            'sub_cats_lvl2': [
+                {
+                'level': 'level2'
+                'level_name':'Vehicles'
+                },   
+                {   
+                'level': 'level2'
+                'level_name':'Housing Expenses'
+                },
+                {
+                    'level': 'level2'
+                    'level_name'
+                }   , 'Physical Assets', 'Real Estate'],
+
+        
+        
+        
+        
         },
         'Vehicles':{
             'level':'level2',
