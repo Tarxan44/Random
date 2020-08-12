@@ -102,44 +102,45 @@ from CategorySort import CategorySort
 """
 class levels():
 #Create a dictionary of info for each category 
-    cat_info_dict = {
-        'Property': {
-            'level': 'level1',
-            'sub_cats_lvl2': [
-                {
-                'level': 'level2'
-                'level_name':'Vehicles'
-                },   
-                {   
-                'level': 'level2'
-                'level_name':'Housing Expenses'
-                },
-                {
-                    'level': 'level2'
-                    'level_name'
-                }   , 'Physical Assets', 'Real Estate'],
-
-        
-        
-        
-        
-        },
-        'Vehicles':{
-            'level':'level2',
-            'sub_cats_lvl3': ['Car','Car Upkeep', 'Other Vehicles'],
-        },
-        'Car':{
-            'level':'level3',
-            'sub_cats_lvl4': ['Acura', 'Alfa Romeo', 'AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
-        'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
-        'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
-        'International', 'Isuzu', 'Jaguar', 'Jeep', 'Jensen', 'Kia', 'Lancia', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus',
-        'Maserati', 'Mazda', 'Mercedes', 'Mercury', 'MG', 'Mitsubishi', 'Mini', 'NSU', 'Oldsmobile', 'Opel', 
-        'Pace', 'Packard', 'Peugot', 'Plymouth', 'Pontiac', 'Porche', 'Ram', 'Rambler', 'Range', 'Renault',
-        'Rolls Royce', 'Rover', 'SAAB', 'Saturn', 'Shelby', 'Simca', 'Studebaker', 'Suburu', 'Sunbeam', 'Suzuki', 'Toyota', 'Triumph',
-        'Volkswagen', 'Volvo', 'Willys', 'Winnebago','Other'],
-        },
-    }
+    test_dict = [
+      { 
+         'category_name': 'categories',
+         'level_data': [ 
+               { 
+                  'level': 1,
+                  'level_name':'Property',
+                  'sub_categories': ['Vehicles','Housing Expenses','Physical Assets', 'Real Estate'],
+               },
+               { 
+                  'level': 2,
+                  'level_name': 'Vehicles',
+                  'sub_categories': ['Car','Car Upkeep', 'Other Vehicles'],
+               },
+               { 
+                  'level': 3,
+                  'level_name': 'Car',
+                  'sub_categories': ['Acura', 'Alfa Romeo','AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
+                    'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
+                    'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
+                    'International', 'Isuzu', 'Jaguar', 'Jeep', 'Jensen', 'Kia', 'Lancia', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus',
+                    'Maserati', 'Mazda', 'Mercedes', 'Mercury', 'MG', 'Mitsubishi', 'Mini', 'NSU', 'Oldsmobile', 'Opel', 
+                    'Pace', 'Packard', 'Peugot', 'Plymouth', 'Pontiac', 'Porche', 'Ram', 'Rambler', 'Range', 'Renault',
+                    'Rolls Royce', 'Rover', 'SAAB', 'Saturn', 'Shelby', 'Simca', 'Studebaker', 'Suburu', 'Sunbeam', 'Suzuki', 'Toyota', 'Triumph',
+                    'Volkswagen', 'Volvo', 'Willys', 'Winnebago','Other'],
+               },
+               { 
+                  'level': 2,
+                  'level_name': 'Housing Expenses',
+                  'sub_categories': ['Utilities', 'Construction', 'House Upkeep', 'Furniture'],
+               },
+               { 
+                  'level': 1,
+                  'level_name': 'Expenses/Income',
+                  'sub_categories': ['Leisure', 'Financial Assests', 'Transport', 'Education', 'Health', 'Income', 'Other Expenditures', 'Consumables'],
+               },
+         ] 
+      }
+   ]
 
     """
     Desired Output                                                                                    These last three are already completed in CategorySort.py
@@ -179,6 +180,7 @@ class levels():
             #iterate thru baseLevel to determine level path
             #rental -> transport -> leisure -> Income/Expenses
             atTop = False
+            category_path = [];
             counter = 0
             category = temp_df['baseLevel'][x] #grab baseLevel column, row x
             while atTop:
@@ -194,7 +196,7 @@ class levels():
                 #then since category = "Expenses/Income" , 'Expenses/Income' = level1 and atTop is true so loop restarts
                 if category in sub_cats_lvl5
                     final_df['Level5'] = category
-                    category = #
+                    print(list(mydict.keys())[list(mydict.values()).index(category)])
                     
 
                 #  if category(i.e 'Acura') is in sub_categories of a level 3 category ('Car'), then category is a level 4 
