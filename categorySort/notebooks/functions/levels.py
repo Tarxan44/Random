@@ -102,7 +102,7 @@ from CategorySort import CategorySort
 """
 class levels():
 #Create a dictionary of info for each category 
-    test_dict = [
+    cat_info_dict = [
       { 
          'category_name': 'categories',
          'level_data': [ 
