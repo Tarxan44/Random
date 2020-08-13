@@ -157,19 +157,22 @@ class levels():
 
     
     def cleaning_layer(df):
-        #removes NaN rows
-        clean_df = df[df['Category Placement'] != 'NaN']
+        #removes NaN rows, theres def a way to do it with vector and booleans but im too lazy to figure it out
+        clean_df = df
+        for x in range(df.shape[0]-1,-1,-1):
+            if str(df['Category Placement'][x]) == 'nan':
+                clean_df = clean_df.drop(clean_df.index[x])
         return clean_df
 
     def combination_layer(df):
         #combines any categories that have been marked to have similiar names to the desired name into a column BaseLevel
-        function_df = pd.Dataframe(columns = ['Code Description', 'BaseLevel'])
-        for x in size(df):
-            if df['Combined'][x] == 'NaN':
-                function_df['BaseLevel'][x] = df['Code Description'][x]
+        function_df = pd.DataFrame(columns = ['Code Description', 'BaseLevel'])
+        for x in range(df.shape[0]):
+            if df.iloc[x, 3] == 'nan':
+                function_df[x,1] = df.loc[x,'Code Description']
             else:
-                function_df['Base Level'][x] = df['Combined'][x]
-        return function+df
+                function_df[x,1] = df[x,'Combined'] 
+        return function_df
 
     def tagging_method(df):
         #creates df

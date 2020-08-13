@@ -10,6 +10,7 @@ class runnyBoi():
      #run the levels function
      orginal_df = pd.read_excel('data\completedHeiarachy.xlsx')
      clean_df = levels.cleaning_layer(orginal_df)
+     #print(clean_df)
      combined_df = levels.combination_layer(clean_df)
      print(combined_df)
      
