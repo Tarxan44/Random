@@ -1,146 +1,8 @@
 from imports import *
 from CategorySort import CategorySort
+from dictionary import *
 
-""" 
-    Purpose of this file: defining simpler and more organized categories to the surveyed values using keywords to sort through the data
-    Ranging in specificity, Level 1 --> level 5
-    Level 1 is the most broad, level 5 is the most specific.
-
-    For example, the thought process is just like categories.csv - broad --> specific
-    Variable--------Level 1------------Level 2-----------Level 3---------------Level 4-------------Level 5
-    MINAPPLY-------Property----------Appliances--------Minor Appliances-----Office and Electr.-----Calculator
-
-    (except drawing from the dictionary to see how many a category is mentioned and what years they are present)
-
-    High level attempt at the direction of this code:
-
-    1. Use BLS Survey data to create most specific levels as a groupby (categories)
-    2. Iterate thru the BLS category names and manually assign them a level Category
-        2a. Assigning the level category will automatically drop it in a path of the broadest category
-        (Category from BLS: Dryer, Assigned to Major Applicance(lvl3), automatically assigned to Housing Expense (lvl2), and Property(lvl1))
-    3. Levels can be change with a categories["category name"].change_level()
-    4. Levels can be quickly added and removed with a .add(), .remove()
-    5. Vision for the code is to have have a table like below uploaded to SQl database
-    Table Should look:
-    Level 1{Name, Subcategory Names, Market info}
-    Level 2{Name, Subcategory Names, Market info}
-    ...
-    Invisible Level 6(categories from BLS survey){Categories,}
-
-    "levels": [
-        {
-            "Property":"level1_Property",
-            "Expenses/Income":"level1_E/I",
-            "Clothing, Fabric, Accessories":"level1_CFA",
-            "Other":"level1_Others";
-        },
-        {
-            "Vehicles":""
-        }
-    ]
-"""
-
-
-    
-"""
-    Level 1 Categories{
-        "Property",
-        "Expenses/Income",
-        "Clothing, Fabric, Accessories",
-        "Other"
-    }
-
-    Level 2 Categories{
-        Property{Vehicles, Housing Expenses, Physical Assets, Real Estate}
-        Expenses/Income{Leisure, Financial Assests, Transport, Education, Health, Income, Other Expenditures, Consumables}
-        Other{Catch all for things that dont fit anywhere else/Irrelevant/Errors}
-        Clothing, Fabric, Acessories{Clothing, Accessories, Fabric}
-    }
-    Changes: Savings, Stocks&Bonds combined to Financial Assests, Food/Drink changed to Consumables
-
-    Level 3 Categories{
-        Other Expenditures{Fees, Insurance}
-        Consumables{Food, Drinks, Alcohol}
-        Vehicles{Car, Car Upkeep, Other Vehicles}
-        Housing Expenses{Utilities, Construction, House Upkeep, Furniture}
-        Income{Employment, Government Assitance}
-        Health{Health Insurance, Clinical Action, Health Equipment}
-        Clothing{Men's Clothes, Women's Clothes, Other Clothing, Youth Clothing}
-        Accessories{Jewlery, Headwear, Shoes, Electronics, Cosmetics, Hygiene}
-        Transport{Rental, Fares}
-    }
-    Changes: House Maintenance changed to House Upkeep, Car Maintenance changed to Car Upkeep, Car Purchases changed to Cars,
-     added Other Vehicles, Removed Records from vehicles, housing expenses, added furniture under Housing Expenses,
-     Gov Assitance changed to Government Assistance, Proactive Health, Reactive Health removed, changed to Clinical Action, Health Equipment,
-     Unisex changed to Other Clothing, removed Baggage, Removed Real Estate, Added Consumables, added Other Expenditures, added Transport,
-     added Cosmetics, Insurance changed to Health Insurance, Insurance added to other expenditures
-
-    Level 4 Categories{
-        Youth Clothing{Boys Clothing, Girls Clothing, Infants Clothing}
-        Car{Acura, Alfa Romeo, AMC, Aston Martin, Audi, Austin, Bentley, BMW,
-        Buick, Cadillac, Chevrolet, Checker, Chrysler, Citroen,Daihastu, Datsun, Dodge,
-        Eagle, English Ford, Ferrari, Fiat, Ford, Geo, GMC, Honda, Hyundai, Infiniti,
-        International, Isuzu, Jaguar, Jeep, Jensen, Kia, Lancia, Land Rover, Lexus, Lincoln, Lotus,
-        Maserati, Mazda, Mercedes, Mercury, MG, Mitsubishi, Mini, NSU, Oldsmobile, Opel, 
-        Pace, Packard, Peugot, Plymouth, Pontiac, Porche, Ram, Rambler, Range, Renault,
-        Rolls Royce, Rover, SAAB, Saturn, Shelby, Simca, Studebaker, Suburu, Sunbeam, Suzuki, Toyota, Triumph,
-        Volkswagen, Volvo, Willys, Winnebago,Other}
-        Employment{Government Employment, Regular Employment}
-        
-    Other Categories{
-        NaN - not applicable
-        Question - unsure where to place/new category needed
-        Air Condition combo? Row 371 -Heating, AC
-        Dishwasher combo row 1313
-        Downloading Audio/Video Row 1386
-        Stove and oven? 3217, 3236, 4355
-    }
-
-    ***Updating the sheet requires a complete recategorization***
-
-    The purpose is to make the finalTable easy to read and categorize for the use of CategoryIQ api
-"""
 class levels():
-#Create a dictionary of info for each category 
-    cat_info_dict = [
-      { 
-         'category_name': 'categories',
-         'level_data': [ 
-               { 
-                  'level': 1,
-                  'level_name':'Property',
-                  'sub_categories': ['Vehicles','Housing Expenses','Physical Assets', 'Real Estate'],
-               },
-               { 
-                  'level': 2,
-                  'level_name': 'Vehicles',
-                  'sub_categories': ['Car','Car Upkeep', 'Other Vehicles'],
-               },
-               { 
-                  'level': 3,
-                  'level_name': 'Car',
-                  'sub_categories': ['Acura', 'Alfa Romeo','AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
-                    'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
-                    'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
-                    'International', 'Isuzu', 'Jaguar', 'Jeep', 'Jensen', 'Kia', 'Lancia', 'Land Rover', 'Lexus', 'Lincoln', 'Lotus',
-                    'Maserati', 'Mazda', 'Mercedes', 'Mercury', 'MG', 'Mitsubishi', 'Mini', 'NSU', 'Oldsmobile', 'Opel', 
-                    'Pace', 'Packard', 'Peugot', 'Plymouth', 'Pontiac', 'Porche', 'Ram', 'Rambler', 'Range', 'Renault',
-                    'Rolls Royce', 'Rover', 'SAAB', 'Saturn', 'Shelby', 'Simca', 'Studebaker', 'Suburu', 'Sunbeam', 'Suzuki', 'Toyota', 'Triumph',
-                    'Volkswagen', 'Volvo', 'Willys', 'Winnebago','Other'],
-               },
-               { 
-                  'level': 2,
-                  'level_name': 'Housing Expenses',
-                  'sub_categories': ['Utilities', 'Construction', 'House Upkeep', 'Furniture'],
-               },
-               { 
-                  'level': 1,
-                  'level_name': 'Expenses/Income',
-                  'sub_categories': ['Leisure', 'Financial Assests', 'Transport', 'Education', 'Health', 'Income', 'Other Expenditures', 'Consumables'],
-               },
-         ] 
-      }
-   ]
 
     """
     Desired Output                                                                                    These last three are already completed in CategorySort.py
@@ -148,16 +10,11 @@ class levels():
     Property              Vehicles           Car                 Acura              NaN(Or 'Not')     Acura Integra              OVB                1996 - 2003
     ...
 
-    5050 ish lines, printed to excel sheet (from completedHeiarachy.xlsx)
+    5050 ish lines, printed to excel sheet (from completedHierarchy.xlsx)
     """
-
-
-
-    #going with a tagging method
-
-    
+      
     def cleaning_layer(df):
-        #removes NaN rows, theres def a way to do it with vector and booleans but im too lazy to figure it out
+        #removes NaN rows, if ever optimized, perhaps use vectors and booleans?
         clean_df = df
         for x in range(df.shape[0]-1,-1,-1):
             if str(df['Category Placement'][x]) == 'nan':
@@ -167,14 +24,16 @@ class levels():
     def combination_layer(df):
         #combines any categories that have been marked to have similiar names to the desired name into a column BaseLevel
         function_df = pd.DataFrame(columns = ['Code Description', 'BaseLevel'])
+        baseLevel_series = []
         for x in range(df.shape[0]):
-            if df.iloc[x, 3] == 'nan':
-                function_df[x,1] = df.loc[x,'Code Description']
+            if str(df.iloc[x, 3]) == 'nan':
+                baseLevel_series.append(df.iloc[x,2])
             else:
-                function_df[x,1] = df[x,'Combined'] 
+                baseLevel_series.append(df.iloc[x,3])
+        function_df['BaseLevel'] = baseLevel_series
         return function_df
 
-    def tagging_method(df):
+    def tagging_method(df, cat_info_dict):
         #creates df
         names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variable', 'Years Active']
         final_df = pd.Dataframe(columns = names)
@@ -191,6 +50,9 @@ class levels():
             # atTop = False
             # category_path = []
             #counter = 0
+
+            """ This is 1 of 2 methods being used to try and assign categories to levels, see TestHierarchies for other one """
+            """ Trying to assign categories to levels as the for loops progress, like a cmd path """
             current_category = df['baseLevel'][x] #grab baseLevel column, row x
             
             for cat1 in cat_info_dict['level1']:
@@ -232,51 +94,7 @@ class levels():
                 final_df['Level1'] = current_category
                 break
                 
-        
-
-
-
-
-
-
-'''
-            while atTop:
-                #find path here
-                #counter for number levels
-                #check to make sure not running thru if loops more than once
-                
-                
-                #Example: x=213(line 213), where category = 'Rental'
-                #'Rental' is not in 'level4' so no assignments are made
-                #if 'Rental' is in 'Level3' then 'Rental' = Level3 and category = Transport 
-                #if 'Transport' is in 'level2' then 'Transport' = Level2 and category = 'Expenses/Income'
-                #then since category = "Expenses/Income" , 'Expenses/Income' = level1 and atTop is true so loop restarts
-                if category in sub_cats_lvl5
-                    final_df['Level5'] = category
-                    print(list(mydict.keys())[list(mydict.values()).index(category)])
-                    
-
-                #  if category(i.e 'Acura') is in sub_categories of a level 3 category ('Car'), then category is a level 4 
-                #  (we have to compensate for the lack of dict for the most specific categories)
-                if category = sub_cats_lvl4 
-                    final_df['Level4'] = category
-                    category = #new broader category that will become level3
-                    """ How do i relate back to the broader instance 'Cars' after defining 'Acura' as it's subcategory?"""
-
-                if category in sub_cats_lvl3
-                    final_df['Level3'] = category
-                    category = #
-
-                if category in sub_cats_lvl2
-                    final_df['Level2'] = category
-                    category = #
-
-                if category = ["Property","Expenses/Income","Clothing, Fabric, Accessories","Other"]:
-                    final_df['Level1'] = category
-                    atTop = True
-                counter = counter +1
-
-'''
+        return()
 
 
 
