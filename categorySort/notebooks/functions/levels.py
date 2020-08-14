@@ -9,12 +9,10 @@ class levels():
     Level1 -------------- Level2 ----------- Level3 ------------ Level4 ----------- Level5 ---------- Code Description ----------File ------------- Years Active
     Property              Vehicles           Car                 Acura              NaN(Or 'Not')     Acura Integra              OVB                1996 - 2003
     ...
-
-    5050 ish lines, printed to excel sheet (from completedHierarchy.xlsx)
     """
       
     def cleaning_layer(df):
-        #removes NaN rows, if ever optimized, perhaps use vectors and booleans?
+        #removes NaN rows, when optimized, perhaps use vectors and booleans?
         clean_df = df
         for x in range(df.shape[0]-1,-1,-1):
             if str(df['Category Placement'][x]) == 'nan':
@@ -23,6 +21,7 @@ class levels():
 
     def combination_layer(df):
         #combines any categories that have been marked to have similiar names to the desired name into a column BaseLevel
+        #just replaces any empty slots in the combined column with the code description
         function_df = pd.DataFrame(columns = ['Code Description', 'BaseLevel'])
         baseLevel_series = []
         for x in range(df.shape[0]):
@@ -33,8 +32,13 @@ class levels():
         function_df['BaseLevel'] = baseLevel_series
         return function_df
 
+
+
+
+
+
     def tagging_method(df, cat_info_dict):
-        #creates df
+        #this was my initial attempt at this, still has some merit as to solving the problem, albeit not the fastest or most effective way
         names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variable', 'Years Active']
         final_df = pd.Dataframe(columns = names)
         for x in range(5): #size(df)
@@ -95,61 +99,3 @@ class levels():
                 break
                 
         return()
-
-
-
-
-
-        
-
-        
-        
-    
-
-        
-
-
-
-
-
-
-"""
-
-        def defining_levels(path, target_level):
-        # Test xlsx for seeing the output of the level schemes without messing up FinalTable 
-        #used for testing - to remove - write to an excel file 
-        writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
-
-        #Write to a file to check outputs
-        #df.to_excel(writer)
-
-        #  future Column names on final output table/intitialization stuffs
-        names = ['Variable','Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5']
-        levelTable = pd.DataFrame(columns = names)
-
-        #Sets up datatypes and column names to pull from sheet
-        dtypes2 = {
-            "Code description" : "category",
-            "Variable " : "category" # Note: typo by bls, space ( ) after Variable
-        }
-        
-        #path to BLS Sheet
-        path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
-
-        megaSheet = pd.read_excel(path,sheet_name=2,dtype = dtypes2, usecols = list(dtypes2))
-
-        #creates a DataFrameGroupBys with each category
-        mentioned_byVariable = megaSheet.groupby(['Variable '])
-        groups = [name for name,unused_df in mentioned_byVariable]
-        
-
-        #Gets the various catagories within level1 (Variable)
-        #levelTable['Variable'] = megaSheet['Variable '] # All 'Variable ' values (not just unique ones)
-        levelTable['Variable'] = megaSheet['Variable '].unique() #finished up to here - name print in df but nothing else 
-        print(levelTable)
-
-
-        # Problem: How does one group these items in nested groups? It should be like a tree with its branches, the higher you go the less thick the branch is but the more leaves that grow 
-        for i in mentioned_byVariable:
-            mentioned_byVariable.groupby(i)
-"""

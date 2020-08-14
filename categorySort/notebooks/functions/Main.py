@@ -2,6 +2,7 @@ from imports import *
 from CategorySort import *
 from levels import *
 from TestHeiarchies import *
+from dictionary import *
 
 """
     Desired Output(Example from line 248 of completedHierarchy.xlsx)                                  These last three are already completed in CategorySort.py
@@ -13,22 +14,24 @@ from TestHeiarchies import *
 """
 
 class Main():
-     
-     #runs the CategorySort functions
-     #table = CategorySort.category_frequency('','Code description')
 
      #run the levels function
-     orginal_df = pd.read_excel('data\completedHierarachy.xlsx')
+
+     #bring in the completed categorized excel sheet
+     orginal_df = pd.read_excel('data/completedHierarchy.xlsx')
+
+     #remove extraneous rows
      clean_df = levels.cleaning_layer(orginal_df)
-     #print(clean_df)
+     
+     #combine layers with similiar names (previously marked)
      combined_df = levels.combination_layer(clean_df)
-     #print(combined_df)
+  
 
      #bring in dictionary
-     dictionary = TestHeiarchies.dictionary()
+     dict = dictionary.dictionary()
 
      #run Test Hierarchies to test the sorting function by levels 
-     levels_df = TestHeiarchies.sortingByLevel(combined_df, dictionary)
+     levels_df = TestHeiarchies.sortingByLevel(combined_df, dict)
      
      
 

@@ -4,6 +4,7 @@ from levels import *
 """ Use this file for testing the assignment of categories to levels """
 
 class TestHeiarchies():
+   '''
    def dictionary():
       test_dict = [
          { 
@@ -29,7 +30,7 @@ class TestHeiarchies():
          }
       ]
       return test_dict
-
+   '''
    def sortingByLevel(df,test_dict):
       path = 'data\completedHierarachy.xlsx'
       excel_sheet = pd.read_excel(path)

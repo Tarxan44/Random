@@ -6,7 +6,7 @@ class CategorySort():
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
       #used for testing - to remove - write to an excel file
-      writer = pd.ExcelWriter('categorySort/notebooks/data/finalTable.xlsx')
+      #writer = pd.ExcelWriter('categorySort/notebooks/data/finalTable.xlsx')
 
 
       #Write to a file to check outputs
