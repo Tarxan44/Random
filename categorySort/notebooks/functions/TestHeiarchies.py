@@ -31,16 +31,25 @@ class TestHeiarchies():
       ]
       return test_dict
    '''
-   def sortingByLevel(df,test_dict):
-      path = 'data\completedHierarachy.xlsx'
-      excel_sheet = pd.read_excel(path)
+   def sortingByLevel(cleaned_and_combined_df, years_and_codes_df, test_dict):
+      #path = 'data\completedHierarachy.xlsx'
+      #excel_sheet = pd.read_excel(path)
 
-      names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variable', 'Years Active']
+      '''I think I got it to run thru the entire dataframe but doesnt assign the variables correctly, ie all rows and levels are Hygiene, Question, Hygiene
+         Should be a relatively easy fix '''
+
+
+      names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Years Active', 'Variables']
       final_df = pd.DataFrame(columns = names)
+
+      #assign years active and variables into final_df
+      final_df['Years Active'] = years_and_codes_df['Years Active']
+      final_df['Variables'] = years_and_codes_df['Variables']
+
       # Using columns that are Acura to test
-      toSort = excel_sheet['Combined']
-      toSort = toSort[245:252]
-      index = toSort.index
+      toSort = cleaned_and_combined_df['BaseLevel']
+      #toSort = toSort[245:252]
+      #index = toSort.index
       
 
       for cat_toBe_sorted in toSort: #For all or selected rows (in this instance rows 245 - 251 of completedHierarchies.xlsx)

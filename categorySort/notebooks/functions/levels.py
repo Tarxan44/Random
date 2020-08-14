@@ -39,7 +39,7 @@ class levels():
 
     def tagging_method(df, cat_info_dict):
         #this was my initial attempt at this, still has some merit as to solving the problem, albeit not the fastest or most effective way
-        names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variable', 'Years Active']
+        names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Years Active', 'Variables']
         final_df = pd.Dataframe(columns = names)
         for x in range(5): #size(df)
             #call code desc
