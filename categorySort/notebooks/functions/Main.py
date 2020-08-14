@@ -22,7 +22,7 @@ class Main():
      #years_and_codes_df = CategorySort.category_frequency('not needed', 'Code description')
      
      years_and_codes_df = pd.read_excel('categorySort/notebooks/data/finalTable.xlsx')
-     print(years_and_codes_df)
+     #print(years_and_codes_df)
 
      #remove extraneous rows
      clean_df = levels.cleaning_layer(orginal_df)
@@ -38,5 +38,5 @@ class Main():
      
      
      
-     #test
+     
 

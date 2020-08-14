@@ -34,7 +34,7 @@ class TestHeiarchies():
       return test_dict
    """ This is a solid option, however its terribly slow. Perhaps a better one would be to use json files and indexing"""
    def sortingByLevel(self, df,test_dict):
-      path = 'data\completedHierarachy.xlsx'
+      path = 'categorySort/notebooks/data/completedHierarchy.xlsx'
       excel_sheet = pd.read_excel(path)
       writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
 

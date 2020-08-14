@@ -22,7 +22,7 @@ def category_frequency(path, target_variable):
       }
 
       #path to BLS Sheet - need try/catch
-      path = 'notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
+      path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
 
       #Read sheet in and replace NaNs in Last year column with present year and converts to int for looks
       megaSheet = pd.read_excel(path,sheet_name=2,dtype = dtypes, usecols = list(dtypes))
