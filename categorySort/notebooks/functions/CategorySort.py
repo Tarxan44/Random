@@ -1,8 +1,8 @@
 from imports import *
 class CategorySort():   
-  
+  """Completed Output of this file can be found in notebooks/data/finalTable.xlsx"""
 
-   def category_frequency(path, target_variable):
+def category_frequency(path, target_variable):
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
       #used for testing - to remove - write to an excel file
@@ -41,7 +41,7 @@ class CategorySort():
 
       """ ---------------- Times Mentioned -------------- """
 
-      #finds number of times each category is used - still need to move those numbers in the final table under 'Times Mentioned'
+      #finds number of times each category is used 
 
       import collections as clt #  This is just here because it was being wack and wouldn't define itself in imports. Kudos if you get it to work
 
@@ -57,7 +57,6 @@ class CategorySort():
 
 
       """--------------- Find Years Active V2 ----------------"""
-      #yes I understand that iteration is prob not the fastest way but Im not smart enough to figure it out with the time i have
       
       #initialize temp list
       tempYears = []
@@ -100,7 +99,7 @@ class CategorySort():
       #add to the final table
       finalTable["Years Active"] = tempYears
       finalTable["Variables"] = tempVars
-      """--------------END YEARS ACTIVE -------------------"""
+      """-------------- END YEARS ACTIVE -------------------"""
       
       #Close the excel writer at the end
       #write results to FinalTable excel
