@@ -22,7 +22,7 @@ class Main():
      #years_and_codes_df = CategorySort.category_frequency('not needed', 'Code description')
      
      years_and_codes_df = pd.read_excel('notebooks/data/finalTable.xlsx')
-     print(years_and_codes_df)
+     #print(years_and_codes_df)
 
      #remove extraneous rows
      clean_df = levels.cleaning_layer(orginal_df)
@@ -35,7 +35,7 @@ class Main():
 
      #run Test Hierarchies to test the sorting function by levels 
      levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df,dict)
-     
+     print(levels_df)
      
      
      #test
