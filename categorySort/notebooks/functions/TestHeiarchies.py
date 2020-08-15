@@ -59,7 +59,7 @@ class TestHeiarchies():
                   #Next line seems to be a critical issue for the success of these loops
                   for cat_toBe_sorted in level_data['sub_categories']: #if our selected category matches a sub category...
 
-                     #print('level' + str(cur_level) + ': ' + cat_toBe_sorted) #test line
+                     print('level' + str(cur_level) + ': ' + cat_toBe_sorted) #test line
                      #following if statements identify and assign cat_toBe_sorted to their appropriate columns
                      if cur_level == 4:
                         final_df['Level4'] = cat_toBe_sorted
@@ -71,6 +71,7 @@ class TestHeiarchies():
                         final_df['Level1'] = cat_toBe_sorted
                      #reset, assign cat_toBe_sorted new value of level_name which is simply the broader level (next level up)
                      cat_toBe_sorted = level_name
+         break;
          counter = counter + 1               
       return final_df              
                         
