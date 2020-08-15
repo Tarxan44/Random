@@ -2,7 +2,7 @@ from imports import *
 class CategorySort():   
   """Completed Output of this file can be found in notebooks/data/finalTable.xlsx"""
 
-def category_frequency(path, target_variable):
+def category_frequency(self, path, target_variable):
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
       #used for testing - to remove - write to an excel file
@@ -19,6 +19,11 @@ def category_frequency(path, target_variable):
          "Code description" : "category",
          "First year" : "category",
          "Last year" : "category",
+         "First Quarter" : "category",
+         "Last Quarter" : "category",
+         "Variables" : "category",
+
+
       }
 
       #path to BLS Sheet - need try/catch
@@ -35,7 +40,7 @@ def category_frequency(path, target_variable):
       mentioned_byCodeDesc = megaSheet.groupby([target_variable])
 
       #Gets categories in an category
-      finalTable['Category'] = groups #finished up to here - name print in df but nothing else 
+      finalTable['Category'] = groups 
 
      
 
@@ -61,6 +66,8 @@ def category_frequency(path, target_variable):
       #initialize temp list
       tempYears = []
       tempVars = []
+      tempFiles = []
+
       for name in groups:
          #get the list of years and vars
          years = mentioned_byCodeDesc.get_group(name).to_numpy()
@@ -71,6 +78,7 @@ def category_frequency(path, target_variable):
          lastUse = years[:,3]
          #check if they are all the same value
          varUnique = np.unique(var)
+         fileUnique = np.unique()
          firstCheck = np.unique(firstUse)
          lastCheck = np.unique(lastUse)
 
@@ -78,6 +86,7 @@ def category_frequency(path, target_variable):
          if len(firstCheck) == 1 & len(lastCheck) == 1:
             tempYears.append(str(firstCheck[0]) + ' - ' + str(lastCheck[0]))
             tempVars.append(varUnique[0])
+            tempFiles.append()
          #Multiple Values for a single Code Description   
          else:
             tempListYears = list(range(len(firstUse)))
@@ -87,8 +96,8 @@ def category_frequency(path, target_variable):
                tempListVars[x] = str(var[x])
 
             #unique
-            tempSetVars = set(tempListVars)
-            tempListVars = list(tempSetVars)
+            tempSetFiles = set(tempListFiles)
+            tempListFiles = list(tempSetFiles)
 
             tempSetYears = set(tempListYears)
             tempListYears = list(tempSetYears)
