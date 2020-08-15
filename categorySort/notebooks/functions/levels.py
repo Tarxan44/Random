@@ -11,7 +11,7 @@ class levels():
     ...
     """
       
-    def cleaning_layer(df):
+    def cleaning_layer(self,df):
         #removes NaN rows, when optimized, perhaps use vectors and booleans?
         clean_df = df
         for x in range(df.shape[0]-1,-1,-1):
@@ -19,7 +19,7 @@ class levels():
                 clean_df = clean_df.drop(clean_df.index[x])
         return clean_df
 
-    def combination_layer(df):
+    def combination_layer(self,df):
         #combines any categories that have been marked to have similiar names to the desired name into a column BaseLevel
         #just replaces any empty slots in the combined column with the code description
         function_df = pd.DataFrame(columns = ['Code Description', 'BaseLevel'])

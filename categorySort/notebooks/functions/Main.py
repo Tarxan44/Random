@@ -1,6 +1,6 @@
 from imports import *
 from CategorySort import *
-from levels import *
+from levels import levels
 from TestHeiarchies import *
 from dictionary import *
 from CategorySort import *
@@ -24,18 +24,19 @@ class Main():
      years_and_codes_df = pd.read_excel('categorySort/notebooks/data/finalTable.xlsx')
      #print(years_and_codes_df)
 
+     levels_object = levels()
      #remove extraneous rows
-     clean_df = levels.cleaning_layer(orginal_df)
+     clean_df = levels_object.cleaning_layer(orginal_df)
      
      #combine layers with similiar names (previously marked)
-     combined_df = levels.combination_layer(clean_df)
+     combined_df = levels_object.combination_layer(clean_df)
 
      #bring in dictionary
-     dict = dictionary.dictionary()
+     category_dictionary = dictionary.dictionary()
 
      #run Test Hierarchies to test the sorting function by levels 
-     levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df,dict)
-     
+     levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df,category_dictionary)
+     print(levels_df)
      
      
      
