@@ -72,7 +72,7 @@ class CategorySort():
 
          #split them 
          files = years[:,0] 
-         vars = years[:,1]
+         var = years[:,1]
          firstUse = years[:,3]
          lastUse = years[:,5]
          
