@@ -1,16 +1,17 @@
 from imports import *
 class CategorySort():   
-  """Completed Output of this file can be found in notebooks/data/finalTable.xlsx"""
+   """Completed Output of this file can be found in notebooks/data/finalTable.xlsx"""
+   #need variables, years active, quarters, code desc, files, columns
 
-def category_frequency(self, path, target_variable):
+   def category_frequency(path, target_variable):
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
-      #used for testing - to remove - write to an excel file
+      #sed for testing - to remove - write to an excel file
       writer = pd.ExcelWriter('notebooks/data/finalTable.xlsx')
 
 
       #  future Column names on final output table/intitialization stuffs
-      names = ['Category', 'Times Mentioned', 'Years Active']
+      names = ['Category', 'Times Mentioned', 'Years Active','Variables', 'Quarters Used']
       finalTable = pd.DataFrame(columns = names)
 
       #Sets up datatypes and column names to pull from sheet
@@ -19,15 +20,13 @@ def category_frequency(self, path, target_variable):
          "Code description" : "category",
          "First year" : "category",
          "Last year" : "category",
-         "First Quarter" : "category",
-         "Last Quarter" : "category",
-         "Variables" : "category",
-
-
+         "First quarter" : "category",
+         "Last quarter" : "category",
+         "Variable " : "category",
       }
 
       #path to BLS Sheet - need try/catch
-      path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
+      path = 'notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
 
       #Read sheet in and replace NaNs in Last year column with present year and converts to int for looks
       megaSheet = pd.read_excel(path,sheet_name=2,dtype = dtypes, usecols = list(dtypes))
@@ -37,12 +36,12 @@ def category_frequency(self, path, target_variable):
       #creates a DataFrameGroupBys with each category
       mentioned_byCodeDesc = megaSheet.groupby([target_variable])
       groups = [name for name,unused_df in mentioned_byCodeDesc]
-      mentioned_byCodeDesc = megaSheet.groupby([target_variable])
+      #mentioned_byCodeDesc = megaSheet.groupby([target_variable])
 
       #Gets categories in an category
       finalTable['Category'] = groups 
 
-     
+      
 
       """ ---------------- Times Mentioned -------------- """
 
@@ -61,8 +60,7 @@ def category_frequency(self, path, target_variable):
       """ --------------- END TIMES MENTIONED ----------------"""
 
 
-      """--------------- Find Years Active V2 ----------------"""
-      
+      """--------------- Find Years Active, Variables, File Names V2 ----------------"""
       #initialize temp list
       tempYears = []
       tempVars = []
@@ -73,41 +71,41 @@ def category_frequency(self, path, target_variable):
          years = mentioned_byCodeDesc.get_group(name).to_numpy()
 
          #split them 
-         var = years[:,0] 
-         firstUse = years[:,2]
-         lastUse = years[:,3]
+         files = years[:,0] 
+         vars = years[:,1]
+         firstUse = years[:,3]
+         lastUse = years[:,5]
+         
          #check if they are all the same value
+         fileUnique = np.unique(files)
          varUnique = np.unique(var)
-         fileUnique = np.unique()
          firstCheck = np.unique(firstUse)
          lastCheck = np.unique(lastUse)
 
-         #Unique Value for a single Code Description
-         if len(firstCheck) == 1 & len(lastCheck) == 1:
-            tempYears.append(str(firstCheck[0]) + ' - ' + str(lastCheck[0]))
-            tempVars.append(varUnique[0])
-            tempFiles.append()
          #Multiple Values for a single Code Description   
-         else:
-            tempListYears = list(range(len(firstUse)))
-            tempListVars = list(range(len(var)))
-            for x in range(0,len(firstUse)):
-               tempListYears[x] = str(firstUse[x]) + ' - ' + str(lastUse[x])
-               tempListVars[x] = str(var[x])
+         tempListYears = list(range(len(firstUse)))
+         tempListVars = list(range(len(var)))
+         for x in range(0,len(firstUse)):
+            tempListYears[x] = str(firstUse[x]) + ' - ' + str(lastUse[x])
+            tempListVars[x] = str(var[x])
+            tempListFiles = str(files[x])
 
-            #unique
-            tempSetFiles = set(tempListFiles)
-            tempListFiles = list(tempSetFiles)
+         #unique
+         tempSetFiles = set(tempListFiles)
+         tempListFiles = list(tempSetFiles)
 
-            tempSetYears = set(tempListYears)
-            tempListYears = list(tempSetYears)
+         tempSetYears = set(tempListYears)
+         tempListYears = list(tempSetYears)
 
-            tempYears.append(tempListYears) 
-            tempVars.append(tempListVars)  
-     
+         tempSetVars = set(tempListVars)
+         tempListVars = list(tempSetVars)
+
+         tempYears.append(tempListYears) 
+         tempVars.append(tempListVars)  
+      
       #add to the final table
       finalTable["Years Active"] = tempYears
-      finalTable["Variables"] = tempVars
+      finalTable["Variables "] = tempVars
       """-------------- END YEARS ACTIVE -------------------"""
       
       #Close the excel writer at the end
@@ -116,7 +114,7 @@ def category_frequency(self, path, target_variable):
       writer.save()
 
       return finalTable
-      
+   
 
 
 
