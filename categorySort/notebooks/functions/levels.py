@@ -22,7 +22,10 @@ class levels():
     def combination_layer(self,df):
         #combines any categories that have been marked to have similiar names to the desired name into a column BaseLevel
         #just replaces any empty slots in the combined column with the code description
-        function_df = pd.DataFrame(columns = ['Code Description', 'BaseLevel'])
+        function_df = pd.DataFrame(columns = ['Code Description','Category Placement' 'BaseLevel'])
+        function_df['Code Description'] = df['Code Description']
+        function_df['Category Placement'] = df['Category Placement']
+
         baseLevel_series = []
         for x in range(df.shape[0]):
             if str(df.iloc[x, 3]) == 'nan':
