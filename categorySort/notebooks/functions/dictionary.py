@@ -14,11 +14,11 @@ class dictionary():
                   { 
                      'level': 3,
                      'level_name': 'Vehicles',
-                     'sub_categories': ['Car','Car Upkeep', 'Other Vehicles'],
+                     'sub_categories': ['Cars','Car Upkeep', 'Other Vehicles'],
                   },
                   { 
                      'level': 4,
-                     'level_name': 'Car',
+                     'level_name': 'Cars',
                      'sub_categories': ['Acura', 'Alfa Romeo','AMC', 'Aston Martin', 'Audi', 'Austin', 'Bentley', 'BMW',
                      'Buick', 'Cadillac', 'Chevrolet', 'Checker', 'Chrysler', 'Citroen','Daihastu', 'Datsun','Dodge',
                      'Eagle', 'English Ford', 'Ferrari', 'Fiat', 'Ford', 'Geo', 'GMC', 'Honda', 'Hyundai', 'Infiniti',
@@ -38,7 +38,7 @@ class dictionary():
                   {
                      'level': 2,
                      'level_name': 'Expenses/Income',
-                     'sub_categories': ['Leisure', 'Financial Assests', 'Transport', 'Education', 'Health', 'Income', 'Other Expenditures', 'Consumables'],
+                     'sub_categories': ['Leisure', 'Financial Assets', 'Transport', 'Education', 'Health', 'Income', 'Other Expenditures', 'Consumables'],
                   },
                   {
                      'level': 3,
@@ -94,7 +94,7 @@ class dictionary():
                   {
                      'level': 3,
                      'level_name': 'Accessories',
-                     'sub_categories': ['Jewlery', 'Headwear', 'Shoes', 'Electronics', 'Cosmetics', 'Hygiene'],
+                     'sub_categories': ['Jewelry', 'Headwear', 'Shoes', 'Electronics', 'Cosmetics', 'Hygiene'],
                   },
                   
                   #Other

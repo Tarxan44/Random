@@ -7,11 +7,11 @@ class CategorySort():
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
       #sed for testing - to remove - write to an excel file
-      writer = pd.ExcelWriter('notebooks/data/finalTable.xlsx')
+      writer = pd.ExcelWriter('categorySort/notebooks/data/finalTable.xlsx')
 
 
       #  future Column names on final output table/intitialization stuffs
-      names = ['Category', 'Times Mentioned', 'Years Active','Variables', 'Quarters Used']
+      names = ['Category', 'Times Mentioned', 'Years Active','Variables', 'First quarter', 'Last quarter']
       finalTable = pd.DataFrame(columns = names)
 
       #Sets up datatypes and column names to pull from sheet
@@ -23,15 +23,20 @@ class CategorySort():
          "First quarter" : "category",
          "Last quarter" : "category",
          "Variable " : "category",
+         "Code value" : "category"
       }
 
       #path to BLS Sheet - need try/catch
-      path = 'notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
+      path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
 
       #Read sheet in and replace NaNs in Last year column with present year and converts to int for looks
       megaSheet = pd.read_excel(path,sheet_name=2,dtype = dtypes, usecols = list(dtypes))
       megaSheet["Last year"] = megaSheet["Last year"].cat.add_categories([2020]).fillna(2020)
       megaSheet["Last year"] = megaSheet["Last year"].astype(int)
+
+      #Replace last quarter NaN with Q4
+      megaSheet["Last quarter"] = megaSheet["Last quarter"].fillna(4).astype(int)
+      #megaSheet["Last quarter"] = megaSheet["Last quarter"].cat.add_categories([4]).fillna(4)
 
       #creates a DataFrameGroupBys with each category
       mentioned_byCodeDesc = megaSheet.groupby([target_variable])
@@ -65,6 +70,8 @@ class CategorySort():
       tempYears = []
       tempVars = []
       tempFiles = []
+      tempFirstQuarters = []
+      tempLastQuarters = []
 
       for name in groups:
          #get the list of years and vars
@@ -73,22 +80,29 @@ class CategorySort():
          #split them 
          files = years[:,0] 
          var = years[:,1]
-         firstUse = years[:,3]
-         lastUse = years[:,5]
+         codes = years[:,2]
+         firstUse = years[:,4]
+         lastUse = years[:,6]
+         first_quarter = years[:,5]
+         last_quarter = years[:,7]
          
-         #check if they are all the same value
-         fileUnique = np.unique(files)
-         varUnique = np.unique(var)
-         firstCheck = np.unique(firstUse)
-         lastCheck = np.unique(lastUse)
 
          #Multiple Values for a single Code Description   
          tempListYears = list(range(len(firstUse)))
          tempListVars = list(range(len(var)))
+         tempListFiles = list(range(len(files)))
+         tempListFirstQuarters = list(range(len(first_quarter)))
+         tempListLastQuarters = list(range(len(last_quarter)))
+         tempListCodes = list(range(len(codes)))
+
          for x in range(0,len(firstUse)):
             tempListYears[x] = str(firstUse[x]) + ' - ' + str(lastUse[x])
             tempListVars[x] = str(var[x])
-            tempListFiles = str(files[x])
+            tempListFiles[x] = str(files[x])
+            tempListFirstQuarters[x] = str(first_quarter[x])
+            tempListLastQuarters[x] = str(last_quarter[x])
+            tempListCodes[x] = str()
+
 
          #unique
          tempSetFiles = set(tempListFiles)
@@ -100,13 +114,27 @@ class CategorySort():
          tempSetVars = set(tempListVars)
          tempListVars = list(tempSetVars)
 
+         tempSetFirstQuarters = set(tempListFirstQuarters)
+         tempListFirstQuarters =list(tempSetFirstQuarters)
+
+         tempSetLastQuarters = set(tempListLastQuarters)
+         tempListLastQuarters = list(tempSetLastQuarters)
+
          tempYears.append(tempListYears) 
-         tempVars.append(tempListVars)  
+         tempVars.append(tempListVars)
+         tempFiles.append(tempListFiles)
+         tempFirstQuarters.append(tempListFirstQuarters) 
+         tempLastQuarters.append(tempListLastQuarters) 
       
       #add to the final table
       finalTable["Years Active"] = tempYears
-      finalTable["Variables "] = tempVars
+      finalTable["Variables"] = tempVars
+      finalTable['Files'] = tempFiles
+      finalTable['First quarter'] = tempFirstQuarters
+      finalTable['Last quarter'] = tempLastQuarters
       """-------------- END YEARS ACTIVE -------------------"""
+
+      
       
       #Close the excel writer at the end
       #write results to FinalTable excel
