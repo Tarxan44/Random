@@ -53,8 +53,8 @@ class TestHeiarchies():
 
       #Now compare values in the completedHierarachy to the dictionary 
       
-      for place in completedHierarachy['Category Placement']:
-         for cat4 in dictionary['Level4']:
+      for place in completedHierarachy['Category Placement'].astype(str):
+         for cat4 in dictionary['Level4'].astype(str):
             if place == cat4:
                final_df['Level4'] = place#this may not work, but trying to isolate the value that = the level4 in dictionary (ln 53)
             #else:
