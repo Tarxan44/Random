@@ -36,15 +36,15 @@ class TestHeiarchies():
    """ This is a solid option, however its terribly slow. Perhaps a better one would be to use json files and indexing""" 
    #def sortingByLevel(combined_df,years_and_active_df,test_dict):
    def sortingByLevel(combined_df, clean_df):
-      writer = pd.ExcelWriter('notebooks/data/test.xlsx')
+      writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
 
       #bring in excel sheet
-      path = 'notebooks/data/completedHierarchy.xlsx'
+      path = 'categorySort/notebooks/data/completedHierarchy.xlsx'
       completedHierarachy = pd.read_excel(path)
       print
 
       #bring in dictionary
-      path2 = 'notebooks/data/dictionaryFull.xlsx'
+      path2 = 'categorySort/notebooks/data/dictionaryFull.xlsx'
       dictionary = pd.read_excel(path2)
       
       #create the dataframe where values will go into
@@ -52,11 +52,43 @@ class TestHeiarchies():
       final_df = pd.DataFrame(columns = names)
 
       #Now compare values in the completedHierarachy to the dictionary 
-      
-      for place in completedHierarachy['Category Placement'].astype(str):
-         for cat4 in dictionary['Level4'].astype(str):
+      #level 4
+
+      #for place in completedHierarachy['Category Placement']: # .astype(str): 
+      for place in completedHierarachy['Combined']: # .astype(str): 
+         for cat4 in dictionary['Level4']: #.astype(str):
             if place == cat4:
-               final_df['Level4'] = place#this may not work, but trying to isolate the value that = the level4 in dictionary (ln 53)
+               final_df['Level4'] = place 
+               #print("level4: " + place)
+               final_df.to_excel(writer) #  Write to Excel file (test.xlsx)
+
+      for place in completedHierarachy['Category Placement']: # .astype(str):  
+         for cat3 in dictionary['Level3']: #.astype(str):
+            if place == cat4:
+               final_df['Level3'] = place 
+               #print("level3: " + place)
+               final_df.to_excel(writer) #  Write to Excel file (test.xlsx)
+
+      #final_df.to_excel(writer) #  Write to Excel file (test.xlsx)
+      writer.save()
+
+      for place in final_df['Level3']:
+         for cat2 in dictionary['Level2']:
+            if place == cat2:
+               final_df['Level2'] = place
+               final_df.to_excel(writer)
+      
+      for place in final_df['Level2']:
+         for cat1 in dictionary['Level1']:
+            if place == cat1:
+               final_df['Level1'] = place
+               final_df.to_excel(writer)
+      writer.save()
+
+      return final_df  
+
+      
+   
             #else:
              #  for cat3 in dictionary["Level3"]:
               #    if place == cat3:
@@ -71,9 +103,7 @@ class TestHeiarchies():
 
    #write a seperate loop that hopefully can just use the final_df compared to the dictionary to complete the last couple levels. 
 
-      final_df.to_excel(writer) #  Write to Excel file (test.xlsx)
-      writer.save()
-      return final_df  
+     
 """
       #add years and variables
       final_df['Variables'] = years_and_active_df['Variables']
