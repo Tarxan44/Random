@@ -7,7 +7,7 @@ class CategorySort():
       """ Using the orginal BLS excel file, find categories, number of times used, years active and inactive 
                                              ***CHECK PATH***                                            """
       #sed for testing - to remove - write to an excel file
-      writer = pd.ExcelWriter('categorySort/notebooks/data/finalTable.xlsx')
+      writer = pd.ExcelWriter('notebooks/data/finalTable.xlsx')
 
 
       #  future Column names on final output table/intitialization stuffs
@@ -27,7 +27,7 @@ class CategorySort():
       }
 
       #path to BLS Sheet - need try/catch
-      path = 'categorySort/notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
+      path = 'notebooks/data/ce_pumd_interview_diary_dictionary.xlsx'
 
       #Read sheet in and replace NaNs in Last year column with present year and converts to int for looks
       megaSheet = pd.read_excel(path,sheet_name=2,dtype = dtypes, usecols = list(dtypes))

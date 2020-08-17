@@ -1,16 +1,16 @@
 from imports import *
 from levels import *
 
+
 """ Use this file for testing the assignment of categories to levels """
 
 class TestHeiarchies():
 
    """ Would recommend using this sample dictionary below for testing the rows that include 'Acura' , as opposed to importing the whole dict"""
-   
+   """
    def dictionary(self):
       test_dict = [
          { 
-            """ Will need to manualy make top 4 categories lvl 1 """
             'category_name': 'categories',
             'level_data': [ 
                   { 
@@ -32,15 +32,49 @@ class TestHeiarchies():
          }
       ]
       return test_dict
-  
+   """
    """ This is a solid option, however its terribly slow. Perhaps a better one would be to use json files and indexing""" 
-   def sortingByLevel(combined_df,years_and_active_df,test_dict):
-      #path = 'data\completedHierarachy.xlsx'
-      #excel_sheet = pd.read_excel(path)
+   #def sortingByLevel(combined_df,years_and_active_df,test_dict):
+   def sortingByLevel(combined_df, clean_df):
+      writer = pd.ExcelWriter('notebooks/data/test.xlsx')
 
+      #bring in excel sheet
+      path = 'notebooks/data/completedHierarchy.xlsx'
+      completedHierarachy = pd.read_excel(path)
+      print
+
+      #bring in dictionary
+      path2 = 'notebooks/data/dictionaryFull.xlsx'
+      dictionary = pd.read_excel(path2)
+      
+      #create the dataframe where values will go into
       names = ['Level1', 'Level2', 'Level3', 'Level4', 'Level5','Code Descripton', 'Variables', 'Years Active']
       final_df = pd.DataFrame(columns = names)
 
+      #Now compare values in the completedHierarachy to the dictionary 
+      
+      for place in completedHierarachy['Category Placement'].astype(str):
+         for cat4 in dictionary['Level4'].astype(str):
+            if place == cat4:
+               final_df['Level4'] = place#this may not work, but trying to isolate the value that = the level4 in dictionary (ln 53)
+            #else:
+             #  for cat3 in dictionary["Level3"]:
+              #    if place == cat3:
+               #      final_df['Level3'] = place
+                #  else:
+                 #    for cat2 in dictionary["Level2"]:
+                  #      if place == cat2:
+                   #        final_df['Level2'] = place
+
+
+            
+
+   #write a seperate loop that hopefully can just use the final_df compared to the dictionary to complete the last couple levels. 
+
+      final_df.to_excel(writer) #  Write to Excel file (test.xlsx)
+      writer.save()
+      return final_df  
+"""
       #add years and variables
       final_df['Variables'] = years_and_active_df['Variables']
       final_df['Years Active'] = years_and_active_df['Years Active']
@@ -72,6 +106,7 @@ class TestHeiarchies():
                      #reset, assign cat_toBe_sorted new value of level_name which is simply the broader level (next level up)
                      cat_toBe_sorted = level_name
          break;
-         counter = counter + 1               
-      return final_df              
+         counter = counter + 1          
+         """     
+               
                         
