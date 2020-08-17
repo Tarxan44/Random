@@ -35,16 +35,15 @@ class TestHeiarchies():
    """
    """ This is a solid option, however its terribly slow. Perhaps a better one would be to use json files and indexing""" 
    #def sortingByLevel(combined_df,years_and_active_df,test_dict):
-   def sortingByLevel(combined_df, clean_df):
-      writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx', mode = 'a')
+   def sortingByLevel(combined_df, years_and_active_df):
+      writer = pd.ExcelWriter('notebooks/data/test.xlsx')
 
       #bring in excel sheet
-      path = 'categorySort/notebooks/data/completedHierarchy.xlsx'
+      path = 'notebooks/data/completedHierarchy.xlsx'
       completedHierarachy = pd.read_excel(path)
-      print
 
       #bring in dictionary
-      path2 = 'categorySort/notebooks/data/dictionaryFull.xlsx'
+      path2 = 'notebooks/data/dictionaryFull.xlsx'
       dictionary = pd.read_excel(path2)
       
       #create the dataframe where values will go into
@@ -57,15 +56,29 @@ class TestHeiarchies():
       #for place in completedHierarachy['Category Placement']: # .astype(str): 
       # NOTE: hopefuly you can get this working jackson, the first two loops work. the last two theoretically should work too. I just didnt 
       # know bc it would assign to the excel sheet and we need to use the excel sheet for an easy assignment
-      
-      for place in completedHierarachy['Combined']: # .astype(str): 
-         for cat4 in dictionary['Level4']: #.astype(str):
-            if place == cat4:
-               final_df['Level4'] = place
-               #print("level4: " + place)
-               final_df.to_excel(writer) #  Write to Excel file (test.xlsx)
+      category_list = combined_df['BaseLevel']
+      level4_placement = []
+      level3_placement = []
+      #level5_placement = []
+      for place in category_list:
+         for cat4 in range(len(dictionary)):
+            if place == dictionary[cat4,'Level4']:
+               level4_placement.append(place)
+               level3_placement.append(dictionary[cat4, "Level3"])
+               #category_list.remove(place)
+      final_df['Level4'] = level4_placement
+      writer.save()
       return final_df
       
+      
+      
+      '''
+      for cat3 in dictionary["Level3"]:
+         if place == cat3:
+            final_df['Level3'] = place
+      return final_df
+      '''
+      '''
       for place in completedHierarachy['Category Placement']: # .astype(str):  
          for cat3 in dictionary['Level3']: #.astype(str):
             if place == cat3:
@@ -83,20 +96,17 @@ class TestHeiarchies():
          for cat1 in dictionary['Level1']:
             if place == cat1:
                final_df['Level1'] = place
-               
-      writer.save()
-    
-
+      '''        
       
-   
-            #else:
-             #  for cat3 in dictionary["Level3"]:
-              #    if place == cat3:
-               #      final_df['Level3'] = place
+    
+#      
                 #  else:
                  #    for cat2 in dictionary["Level2"]:
                   #      if place == cat2:
-                   #        final_df['Level2'] = place
+                   #        final_df['Level2'] = place  
+      
+   
+            
 
 
             

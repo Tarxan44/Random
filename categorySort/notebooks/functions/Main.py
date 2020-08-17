@@ -18,15 +18,15 @@ from CategorySort import *
 class Main():
      #cs_object = CategorySort()
      #bring in the completed categorized excel sheet
-     orginal_df = pd.read_excel('categorySort/notebooks/data/completedHierarchy.xlsx')
+     orginal_df = pd.read_excel('notebooks/data/completedHierarchy.xlsx')
 
      #get codes and years active - takes a long time - might just pull from the excel file
      #years_and_codes_df = CategorySort.category_frequency('not needed', 'Code description')
-     years_and_codes_df = pd.read_excel('categorySort/notebooks/data/finalTable.xlsx')
+     #years_and_codes_df = pd.read_excel('notebooks/data/finalTable.xlsx')
      #print(years_and_codes_df)
      
-     years_and_codes_df = pd.read_excel('categorySort/notebooks/data/finalTable.xlsx')
-     print(years_and_codes_df)
+     years_and_codes_df = pd.read_excel('notebooks/data/finalTable.xlsx')
+     #print(years_and_codes_df)
 
      levels_object = levels()
      #remove extraneous rows
@@ -40,7 +40,7 @@ class Main():
 
      #run Test Hierarchies to test the sorting function by levels 
      #levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df,category_dictionary)
-     levels_df = TestHeiarchies.sortingByLevel(combined_df, clean_df)
+     levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df)
      #levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df,category_dictionary)
 
      print(levels_df)
