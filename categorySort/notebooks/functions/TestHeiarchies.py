@@ -36,14 +36,15 @@ class TestHeiarchies():
    """ This is a solid option, however its terribly slow. Perhaps a better one would be to use json files and indexing""" 
    #def sortingByLevel(combined_df,years_and_active_df,test_dict):
    def sortingByLevel(combined_df, years_and_active_df):
-      writer = pd.ExcelWriter('notebooks/data/test.xlsx')
+      writer = pd.ExcelWriter('categorySort/notebooks/data/test.xlsx')
+      #writer = pd.ExcelWriter('notebooks/data/test.xlsx')
 
       #bring in excel sheet
-      path = 'notebooks/data/completedHierarchy.xlsx'
+      path = 'categorySort/notebooks/data/completedHierarchy.xlsx'
       completedHierarachy = pd.read_excel(path)
 
       #bring in dictionary
-      path2 = 'notebooks/data/dictionaryFull.xlsx'
+      path2 = 'categorySort/notebooks/data/dictionaryFull.xlsx'
       dictionary = pd.read_excel(path2)
       
       #create the dataframe where values will go into
@@ -59,14 +60,23 @@ class TestHeiarchies():
       category_list = combined_df['BaseLevel']
       level4_placement = []
       level3_placement = []
+      level2_placement = []
+      level1_placement = []
       #level5_placement = []
       for place in category_list:
          for cat4 in range(len(dictionary)):
-            if place == dictionary[cat4,'Level4']:
+            #if place == (dictionary['Level4'].all()) and (dictionary[cat4].all()):
+            if place == (dictionary['Level4'] & dictionary[cat4]):
                level4_placement.append(place)
                level3_placement.append(dictionary[cat4, "Level3"])
+               print("level4: " + level4_placement)
+               print("level3: " + level3_placement)
                #category_list.remove(place)
       final_df['Level4'] = level4_placement
+      final_df['Level3'] = level3_placement
+      final_df['Level2'] = level2_placement
+      final_df['Level1'] = level1_placement
+
       writer.save()
       return final_df
       
