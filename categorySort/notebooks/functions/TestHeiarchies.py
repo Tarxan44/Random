@@ -66,7 +66,7 @@ class TestHeiarchies():
       for place in category_list:
          for cat4 in range(len(dictionary)):
             #if place == (dictionary['Level4'].all()) and (dictionary[cat4].all()):
-            if place == (dictionary['Level4'] & dictionary[cat4]):
+            if place == ((dictionary['Level4']) & (dictionary[cat4])):
                level4_placement.append(place)
                level3_placement.append(dictionary[cat4, "Level3"])
                print("level4: " + level4_placement)
