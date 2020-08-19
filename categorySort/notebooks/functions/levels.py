@@ -11,11 +11,11 @@ class levels():
     ...
     """
       
-    def cleaning_layer(self,df):
+    def cleaning_layer(self,df,column):
         #removes NaN rows, when optimized, perhaps use vectors and booleans?
         clean_df = df
         for x in range(df.shape[0]-1,-1,-1):
-            if str(df['Category Placement'][x]) == 'nan':
+            if str(df[column][x]) == 'nan':
                 clean_df = clean_df.drop(clean_df.index[x])
         return clean_df
 

@@ -11,7 +11,7 @@ class CategorySort():
 
 
       #  future Column names on final output table/intitialization stuffs
-      names = ['Category', 'Times Mentioned', 'Years Active','Variables', 'First quarter', 'Last quarter']
+      names = ['Code Description', 'Times Mentioned', 'Years Active','Variables', 'First quarter', 'Last quarter']
       finalTable = pd.DataFrame(columns = names)
 
       #Sets up datatypes and column names to pull from sheet

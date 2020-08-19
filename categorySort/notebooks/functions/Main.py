@@ -18,24 +18,23 @@ from CategorySort import *
 class Main():
      #cs_object = CategorySort()
      #bring in the completed categorized excel sheet
-     path = 'categorySort/notebooks/data/completedHierarchy.xlsx' #path for Mason computer
-     orginal_df = pd.read_excel(path)
-    # orginal_df = pd.read_excel('notebooks/data/completedHierarchy.xlsx')
-     
+     path = 'notebooks/data/completedHierarchy.xlsx' #path for Mason computer
+     orginal_df = pd.read_excel(path)     
 
      #get codes and years active - takes a long time - might just pull from the excel file
      #years_and_codes_df = CategorySort.category_frequency('not needed', 'Code description')
-     #years_and_codes_df = pd.read_excel('notebooks/data/finalTable.xlsx')
-     #print(years_and_codes_df)
      
-     years_and_codes_df = pd.read_excel('categorySort/notebooks/data/finalTable.xlsx')
-     #years_and_codes_df = pd.read_excel('notebooks/data/finalTable.xlsx')
-     #print(years_and_codes_df)
-
+     years_and_codes_df = pd.read_excel('notebooks/data/finalTable.xlsx')
+     years_and_codes_df['Category Placement'] = orginal_df['Category Placement']
+     
+     
      levels_object = levels()
-     #remove extraneous rows
-     clean_df = levels_object.cleaning_layer(orginal_df)
      
+     #remove extraneous rows
+     clean_df = levels_object.cleaning_layer(orginal_df,'Category Placement')
+     years_and_codes_df = levels_object.cleaning_layer(years_and_codes_df,'Category Placement')
+     
+
      #combine layers with similiar names (previously marked)
      combined_df = levels_object.combination_layer(clean_df)
 
@@ -47,7 +46,7 @@ class Main():
      levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df)
      #levels_df = TestHeiarchies.sortingByLevel(combined_df, years_and_codes_df,category_dictionary)
 
-     print(levels_df)
+     print('done')
      
      
      
